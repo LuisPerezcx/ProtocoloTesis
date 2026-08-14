@@ -1,0 +1,75 @@
+# ============================================
+# Artefactos de compilación LaTeX (pdflatex/xelatex + biblatex/biber)
+# ============================================
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# Bibliografía: biblatex + biber
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*-blx.bib
+
+# BibTeX clásico (por si algún paquete lo usa)
+*.bit
+
+# Índices / glosarios (por si se agregan después)
+*.idx
+*.ind
+*.ilg
+*.glo
+*.gls
+*.glg
+*.acn
+*.acr
+*.alg
+
+# Carpeta de salida de latexmk (PDF final se regenera aquí)
+protocolo/build/
+
+# ============================================
+# Sistema operativo
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ============================================
+# Editor (VSCode) — settings ya sincronizados por Settings Sync,
+# no hace falta versionarlos por proyecto
+# ============================================
+.vscode/
+*.code-workspace
+
+# ============================================
+# Carpetas de trabajo temporal
+# ============================================
+*.tmp
+~*
+
+# ============================================
+# PDFs de artículos descargados: no se versionan (derechos de autor / peso).
+# Si quieres conservar alguno sí en el repo, agrégalo con:
+#   git add -f articulos/pdfs/nombre.pdf
+# ============================================
+articulos/pdfs/*
+!articulos/pdfs/.gitkeep
+

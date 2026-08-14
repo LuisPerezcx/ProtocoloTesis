@@ -1,0 +1,89 @@
+% ============================================================
+% Protocolo de Tesis de Maestría
+% Documento maestro — compilar este archivo (main.tex)
+% Motor: pdflatex  |  Bibliografía: biblatex-apa (backend=biber)
+% ============================================================
+\documentclass[12pt,letterpaper]{article}
+
+% ---------- Idioma y codificación ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}       % fuentes vectoriales (evita fuentes bitmap y problemas de extracción de texto)
+\usepackage[spanish,es-noindentfirst]{babel}
+
+% ---------- Geometría de página (según formato institucional) ----------
+\usepackage[top=2.5cm,bottom=2.5cm,left=3cm,right=3cm]{geometry}
+
+% ---------- Utilidades de contenido ----------
+\usepackage{graphicx}      % imágenes
+\usepackage{float}         % control de posición de figuras/tablas [H]
+\usepackage{caption}       % control de estilo de captions
+\usepackage{booktabs}      % tablas con líneas profesionales
+\usepackage{enumitem}      % listas personalizables
+\usepackage{csquotes}      % recomendado junto con babel + biblatex
+\usepackage{setspace}      % interlineado (ajustar si tu universidad exige 1.5 o doble)
+% \onehalfspacing          % descomenta si necesitas interlineado 1.5
+\usepackage{xcolor}
+\usepackage{microtype}     % mejora justificación y espaciado tipográfico automáticamente
+
+% ---------- Bibliografía: APA 7 vía biblatex + biber ----------
+\usepackage[
+  backend=biber,
+  style=apa,
+  natbib=true,
+  uniquename=false,
+  uniquelist=false,
+]{biblatex}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+\addbibresource{referencias/bibliografia.bib}
+
+% ---------- Enlaces clicables (cargar después de biblatex) ----------
+\usepackage[
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  citecolor=blue!50!black,
+  urlcolor=blue!50!black,
+  bookmarksnumbered=true,
+]{hyperref}
+
+% ---------- Metadatos del PDF ----------
+\hypersetup{
+  pdftitle={Protocolo de Tesis de Maestría},
+  pdfauthor={Nombre del Candidato},
+}
+
+\begin{document}
+
+% ============================================================
+% PORTADA / RESUMEN / ABSTRACT
+% ============================================================
+\input{portada}
+
+\newpage
+% ============================================================
+% ÍNDICES DINÁMICOS
+% ============================================================
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+% ============================================================
+% CONTENIDO — Secciones numeradas del protocolo
+% ============================================================
+\input{secciones/01-introduccion}
+\input{secciones/02-descripcion-problema}
+\input{secciones/03-limitaciones}
+\input{secciones/04-hipotesis}
+\input{secciones/05-objetivos}
+\input{secciones/06-aproximacion-solucion}
+\input{secciones/07-plan-trabajo}
+\input{secciones/08-publicaciones}
+\input{secciones/09-bibliografia}
+
+% ============================================================
+% FIRMAS / APROBACIÓN
+% ============================================================
+\input{secciones/10-firmas}
+
+\end{document}
