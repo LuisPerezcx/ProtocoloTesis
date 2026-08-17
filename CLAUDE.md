@@ -5,6 +5,115 @@ sesiones en la nube que no comparten memoria entre sí) recupere el
 contexto completo del proyecto sin que David tenga que repetirlo. Léelo
 al empezar a trabajar en esta carpeta.
 
+## Director de tesis y punto de partida del protocolo
+
+El director de tesis de David es el **Dr. Carlos Alberto Fernández-y-Fernández**
+(Instituto de Computación, Universidad Tecnológica de la Mixteca — UTM).
+
+El punto de partida del protocolo es un artículo del propio director:
+*"The Role Specialization Model (RSM): Coordinating LLM-Based Tools in
+Agentic Software Development – An Exploratory Case Study"* (Fernández-y-Fernández
+& Aguilar Cisneros, UPAEP). Propone el **RSM**, un marco para coordinar
+varias herramientas basadas en LLM (Antigravity, Gemini CLI, Qwen Code)
+asignándoles roles fijos (Arquitecto / Analista / Especialista) dentro de
+un flujo de desarrollo de software agéntico, con un humano como
+orquestador. Es un estudio de caso exploratorio, de caso único y sin
+replicación empírica — el propio artículo enumera sus limitaciones
+(homogeneidad de modelos entre herramientas, ausencia de límites de
+alcance formalizados entre roles, evaluación de calidad solo cualitativa,
+falta de métricas cuantitativas de orquestación, sin agente evaluador),
+que son candidatas naturales a convertirse en el problema de tesis.
+
+Material de referencia guardado en el repo:
+- `articulos/pdfs/RSM_Role Specialization Model_v6_unlinked_unnumbered.pdf` — PDF original.
+- `articulos/traducciones/RSM-role-specialization-model_traduccion.md` — síntesis completa en español, por sección (no traducción literal, por derechos de autor).
+- `articulos/notas/rsm-role-specialization-model.md` — nota de análisis: hallazgos, huecos/limitaciones reconocidas por el propio artículo, y cómo se conectan con la sección "Descripción del problema".
+
+Cuando David retome el protocolo en una sesión nueva, leer primero estas
+tres referencias junto con este archivo — dan el contexto teórico base
+sin tener que releer el PDF completo.
+
+## Convención: `articulos/traducciones/`
+
+Carpeta nueva (no estaba en la estructura original) para síntesis/traducciones
+en español de artículos en inglés que David necesita releer en su idioma.
+Igual que `notas/`, un archivo por artículo, nombrado `<slug>_traduccion.md`.
+Por derechos de autor, estas síntesis **no son traducciones literales
+completas** del artículo — son un resumen fiel y completo por sección,
+en palabras propias, más citas puntuales entre comillas cuando hace falta
+precisión. Si David necesita la redacción exacta de un párrafo específico,
+pedirla puntualmente en vez de traducir el artículo entero de nuevo.
+
+## Política de fuentes: no preprints, solo artículos publicados y arbitrados
+
+Regla explícita de David (y de sus directores): **nunca citar arXiv ni
+ningún otro preprint** en el protocolo/tesis, solo artículos que ya
+pasaron revisión por pares (proceedings de una conferencia arbitrada,
+journal, etc.). Esto aplica tanto a la bibliografía formal (`.bib`) como
+a cualquier afirmación que se use como evidencia en el texto.
+
+En la práctica, cuando se encuentre un artículo relevante:
+1. Buscar primero si ya tiene versión publicada en una venue arbitrada
+   (NeurIPS, ICLR, ACL, IJCAI, una revista, etc.) — normalmente en
+   `proceedings.neurips.cc`, `proceedings.iclr.cc`, `dl.acm.org`,
+   `ieeexplore.ieee.org`, `openreview.net` (solo si dice "accepted"),
+   páginas oficiales de la conferencia, o el DOI de la revista. **No**
+   usar el link de arXiv como cita final aunque el contenido sea
+   idéntico — usar el link/DOI de la proceedings oficial.
+2. Si el artículo *solo* existe en arXiv (o similar) y no se encuentra
+   evidencia de que haya pasado arbitraje, **no se agrega a
+   `bibliografia.bib` como cita citable todavía**. Se deja registrado
+   como "seguimiento, no citar" en la nota correspondiente de
+   `articulos/notas/`, y se revisa de nuevo más adelante por si ya se
+   publicó.
+3. Excepción de facto: el propio artículo del director (RSM) todavía no
+   tiene venue confirmada en este repo — verificar su estado de
+   publicación cuando David lo confirme, y actualizar esta nota.
+
+Ejemplo de caso ya resuelto (2026-08-16): de una primera búsqueda sobre
+orquestación/especialización de roles multiagente, tres artículos sí
+tenían venue arbitrada (NeurIPS 2025, NeurIPS 2025, ICLR 2026) y se
+citan por su DOI/página de proceedings oficial; otros cuatro
+(AgentCARD, TeamBench, EntCollabBench, y una survey de colaboración
+multiagente) solo estaban en arXiv sin venue confirmada, así que se
+dejaron fuera del `.bib` citable y solo quedaron como registro de
+seguimiento en `articulos/notas/orquestacion-especializacion-multiagente-2025-2026.md`.
+
+## Revisión de redacción: alertar sobre plagio / parafraseo demasiado cercano
+
+Instrucción explícita de David (2026-08-16), válida para cualquier sesión
+futura: cuando revise algo que David redactó (protocolo, tesis, cualquier
+sección), si detecta que una oración o fragmento **parafrasea demasiado
+cerca** el texto original de una fuente citada (misma estructura de
+oración, mismo orden de ideas, traducción casi literal aunque cambien
+algunas palabras — lo que en inglés se llama "patchwriting"), debe
+**alertarlo explícitamente**, señalando:
+- qué oración específica es la de riesgo,
+- de qué fuente/oración original viene (sección/página si es posible),
+- por qué se considera demasiado cercana (no basta con traducir y cambiar
+  un par de palabras — hay que reestructurar la idea o citar textualmente
+  entre comillas si la frase original es muy específica),
+- y una sugerencia de cómo corregirlo (reformular con estructura propia,
+  o usar cita textual entre comillas con `\parencite`/`\textcite` si de
+  plano conviene conservar la frase exacta).
+
+Esto aplica sobre todo al escribir a partir de la síntesis en español de
+un artículo (`articulos/traducciones/`), porque el riesgo de traducir
+casi literal sin darse cuenta es mayor ahí que citando en inglés
+directamente. No esperar a que David lo pida en cada ocasión — revisarlo
+por defecto cada vez que comparta redacción del protocolo.
+
+## Convención de comillas
+
+David prefiere comillas rectas `"..."` en todo el protocolo, no comillas
+angulares `«...»` (aunque `«...»` es lo que suele recomendar la RAE en
+español, en México es más común usar comillas rectas y así se decidió
+dejarlo, 2026-08-16). Con la configuración actual de `main.tex`
+(`fontenc` en T1, `lmodern`, `babel[spanish]` sin `shorthands` activado),
+`"..."` se renderiza bien tal cual, sin necesitar ningún paquete
+adicional — no usar `«...»` salvo que David lo pida explícitamente para
+un caso puntual.
+
 ## Quién y qué
 
 David está escribiendo su protocolo de tesis de maestría en LaTeX (y más
