@@ -23,6 +23,10 @@
 \usepackage{csquotes}      % recomendado junto con babel + biblatex
 \MakeOuterQuote{"}         % permite escribir "..." directo y que se tipografíe bien
                            % (evita que el shorthand de babel-spanish "coma" texto, ej. "olvidar" -> ".lvidar")
+\DeclareQuoteStyle{straightsp}     % por defecto csquotes usa comillas angulares «...»
+  {\textquotedbl}{\textquotedbl}   % para español; esto fuerza comillas rectas "..."
+  {\textquotesingle}{\textquotesingle}
+\setquotestyle{straightsp}
 \usepackage{setspace}      % interlineado (ajustar si tu universidad exige 1.5 o doble)
 % \onehalfspacing          % descomenta si necesitas interlineado 1.5
 \usepackage{xcolor}

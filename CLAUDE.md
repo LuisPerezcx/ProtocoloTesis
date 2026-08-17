@@ -108,11 +108,21 @@ por defecto cada vez que comparta redacción del protocolo.
 David prefiere comillas rectas `"..."` en todo el protocolo, no comillas
 angulares `«...»` (aunque `«...»` es lo que suele recomendar la RAE en
 español, en México es más común usar comillas rectas y así se decidió
-dejarlo, 2026-08-16). Con la configuración actual de `main.tex`
-(`fontenc` en T1, `lmodern`, `babel[spanish]` sin `shorthands` activado),
-`"..."` se renderiza bien tal cual, sin necesitar ningún paquete
-adicional — no usar `«...»` salvo que David lo pida explícitamente para
-un caso puntual.
+dejarlo, 2026-08-16).
+
+Nota técnica (corregida 2026-08-17, verificada compilando): escribir
+`"..."` en crudo con `babel[spanish]` activo SÍ se corrompe (ej.
+`"olvidar"` se convierte en `.lvidar`) porque `babel-spanish` usa `"`
+como carácter de atajo (shorthand). `\MakeOuterQuote{"}` en `main.tex`
+corrige esa corrupción, pero de forma predeterminada enruta `"..."` a
+través de `csquotes`, cuyo estilo para español son comillas angulares
+`«...»` — es decir, sin nada más, el resultado visual es angular, no
+recto. Por eso `main.tex` también define un estilo `straightsp` propio
+con `\DeclareQuoteStyle` + `\setquotestyle{straightsp}` justo después del
+`\MakeOuterQuote{"}`, que fuerza comillas rectas reales manteniendo el
+fix de la corrupción. No quitar esas líneas pensando que son
+redundantes — sin ellas el documento compila bien pero con comillas
+angulares, no rectas.
 
 ## Quién y qué
 
