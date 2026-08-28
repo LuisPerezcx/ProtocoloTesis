@@ -40,6 +40,11 @@
 # Carpeta de salida de latexmk (PDF final se regenera aquí)
 protocolo/build/
 
+# Archivos generados por "npm run diff" (latexdiff) para revisión con el
+# director -- son temporales, se regeneran en cualquier momento
+protocolo/main-diff.tex
+protocolo/build-diff/
+
 # ============================================
 # Sistema operativo
 # ============================================

@@ -1,0 +1,9 @@
+{
+  "name": "protocolo-tesis",
+  "private": true,
+  "description": "Scripts de apoyo para el protocolo de tesis (no es un proyecto de Node, solo usamos npm como runner de comandos).",
+  "scripts": {
+    "tag:review": "node scripts/tag-review.js",
+    "diff": "node scripts/diff-review.js"
+  }
+}

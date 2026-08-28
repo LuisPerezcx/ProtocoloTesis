@@ -193,24 +193,34 @@ casos no hay que tocar nada.
 ## Estructura de secciones del protocolo
 
 Basada en la plantilla institucional (`Anteproyecto_Formato_Maestria`),
-con una sección adicional que David pidió agregar:
+con un ajuste hecho el 2026-08-17 por sugerencia del codirector (ver
+`main4_comentarios.pdf`):
 
-1. Introducción y motivaciones
-2. **Descripción del problema** ← sección agregada (no está en la
-   plantilla original; va después de la introducción porque ahí es donde
-   se acota el problema específico a partir del estado del arte
-   presentado en la sección 1)
-3. Limitaciones de la investigación
-4. Hipótesis de la tesis
-5. Objetivos de la tesis
-6. Aproximación a la solución
-7. Plan de trabajo
-8. Publicaciones generadas
-9. Bibliografía fundamental (con subsección 9.1 Accesos por Internet)
+1. Introducción y motivaciones (incluye como subsección 1.4
+   **Descripción del problema** — originalmente era una sección
+   independiente que David pidió agregar; se integró aquí como
+   subsección porque el codirector la vio más como continuación natural
+   del estado del arte que como un apartado aparte. Sus antiguas
+   subsecciones internas — Planteamiento, Evidencia, Consecuencias —
+   ahora son `\subsubsection` dentro de ella.)
+2. Limitaciones de la investigación
+3. Hipótesis de la tesis
+4. Objetivos de la tesis
+5. Aproximación a la solución
+6. Plan de trabajo
+7. Publicaciones generadas
+8. Bibliografía fundamental (ya sin la subsección "Accesos por Internet",
+   eliminada el 2026-08-17 por quedar obsoleta frente al flujo unificado
+   de `biblatex-apa`)
 
-Cada sección es un archivo independiente en `protocolo/secciones/`,
-incluido desde `protocolo/main.tex` vía `\input`. Mantener esta
-separación al editar: no fusionar secciones en `main.tex`.
+Cada sección es un archivo independiente en `protocolo/secciones/`
+(numerados según el orden de arriba: `01-introduccion.tex`,
+`02-limitaciones.tex`, ..., `09-firmas.tex`), incluido desde
+`protocolo/main.tex` vía `\input`. Mantener esta separación al editar:
+no fusionar secciones en `main.tex`. Si se vuelve a reordenar/fusionar
+alguna sección, renombrar también los archivos para que el número del
+nombre siga coincidiendo con su posición real — evita confusión al
+navegar la carpeta.
 
 ## Formato de página
 
@@ -239,6 +249,79 @@ A diferencia del resto de los PDFs (que se regeneran y no se versionan),
 los PDFs finales entregados al director/comité sí se guardan aquí y sí se
 suben a git, como respaldo histórico de qué versión se entregó y cuándo.
 Convención de nombre sugerida: `protocolo_v<n>_<AAAA-MM-DD>.pdf`.
+
+## Flujo de revisión con el director (git tags + latexdiff)
+
+Sugerencia del propio director (2026-08-27, por correo): que el texto
+nuevo/cambiado desde la última vez que le mandó avances aparezca en otro
+color, para no tener que releer todo el documento de nuevo. Se implementó
+con `latexdiff-vc` + dos scripts de Node en `scripts/`, expuestos como
+comandos npm (no es un proyecto de Node real, `package.json` solo se usa
+como task runner multiplataforma — no requiere `npm install`, solo Node
+instalado):
+
+- `npm run tag:review` → `scripts/tag-review.js`: crea una etiqueta de git
+  `envio-director-YYYY-MM-DD` apuntando al commit actual (si ya existe una
+  con esa fecha, agrega sufijo `-2`, `-3`, ...).
+- `npm run diff` (o `npm run diff -- <tag-o-commit>`) → `scripts/diff-review.js`:
+  1. Resuelve la referencia a comparar: el argumento si se dio uno, o si
+     no la etiqueta `envio-director-*` más reciente.
+  2. Corre `latexdiff-vc --git -r <ref> --flatten --type=CFONT main.tex`
+     dentro de `protocolo/`, generando `protocolo/main-diff.tex`.
+  3. Post-procesa ese `.tex` con una regex para que `\DIFaddtex`/`\DIFdeltex`
+     solo cambien de color (azul = agregado, rojo = eliminado), sin tocar
+     tamaño ni familia de fuente — por defecto latexdiff también encoge el
+     texto agregado/eliminado, y eso no se quería.
+  4. Compila `main-diff.tex` (pdflatex → biber → pdflatex ×2) con
+     `-output-directory=build-diff`, para no mezclarse con `protocolo/build/`.
+     El `.tex` de salida se queda en `protocolo/` (mismo nivel que
+     `main.tex`) para que las rutas relativas a `referencias/bibliografia.bib`
+     sigan resolviendo bien; solo los archivos de compilación (aux/log/pdf)
+     van a `build-diff/`.
+  5. Resultado: `protocolo/build-diff/main-diff.pdf`.
+
+**Por qué `--type=CFONT` y no el estilo por defecto de latexdiff
+(UNDERLINE):** UNDERLINE usa el paquete `ulem` (`\uline`/`\uwave`), cuyo
+manejo de subrayado a nivel de carácter choca con el shorthand activo `"`
+de `babel-spanish` (la misma familia de bug que la corrupción
+`"olvidar"` → `.lvidar` documentada arriba) — producía un carácter
+extra pegado justo después de palabras entre comillas. Se verificó
+renderizando el PDF. `CFONT` evita el problema porque solo envuelve el
+texto en `\color{}`, sin pasar por `ulem`.
+
+Archivos generados por `npm run diff` (`protocolo/main-diff.tex` y
+`protocolo/build-diff/`) están en `.gitignore` — son temporales y se
+regeneran en cualquier momento, no se versionan.
+
+**Ciclo completo de trabajo:**
+
+1. Trabajar y hacer commits normalmente en `01-introduccion.tex` (o la
+   sección que sea), como cualquier otro cambio de git.
+2. Cuando llegue el momento de mandarle avances al director: **primero
+   asegurarse de que ese estado exacto esté comiteado** (commit
+   obligatorio — ver nota abajo), y **después** correr
+   `npm run tag:review`. Esto deja una etiqueta apuntando exactamente a
+   "lo que el director ya vio".
+3. Seguir trabajando y comiteando como siempre.
+4. En cualquier momento (para revisar el propio avance, o antes de la
+   siguiente entrega), correr `npm run diff` para generar
+   `protocolo/build-diff/main-diff.pdf` con solo lo que cambió desde la
+   última etiqueta `envio-director-*` (o desde una referencia específica
+   con `npm run diff -- <tag-o-commit>`).
+5. Cuando se le mande la siguiente ronda de avances al director: comitear
+   ese nuevo estado y volver a correr `npm run tag:review`, que crea una
+   nueva etiqueta y mueve el marcador hacia adelante.
+
+**¿Es obligatorio comitear antes de `npm run tag:review`?** Sí. Un tag de
+git es un puntero inmutable a un commit ya existente, no una foto del
+directorio de trabajo — no existe tal cosa como "un tag de cambios sin
+comitear". Si se corre `npm run tag:review` con cambios sin comitear, la
+etiqueta va a apuntar al último commit real (HEAD), que **no** incluye
+esos cambios pendientes. Entonces el diff generado después con `npm run
+diff` no reflejaría correctamente "lo que cambió desde que se lo mandé al
+director", porque la etiqueta no representa lo que en verdad se le mandó.
+Por eso el paso 2 dice explícitamente: comitear primero, etiquetar
+después — en ese orden, siempre.
 
 ## Cómo ayudar en este proyecto
 
