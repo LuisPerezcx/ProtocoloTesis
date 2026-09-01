@@ -192,30 +192,54 @@ casos no hay que tocar nada.
 
 ## Estructura de secciones del protocolo
 
-Basada en la plantilla institucional (`Anteproyecto_Formato_Maestria`),
-con un ajuste hecho el 2026-08-17 por sugerencia del codirector (ver
-`main4_comentarios.pdf`):
+Reestructurada el 2026-08-31 para alinearse **estrictamente** con la
+plantilla institucional oficial (`Formato_Tema_Investigacion.docx`, la
+que David subió, no confundir con la plantilla vieja
+`Anteproyecto_Formato_Maestria` referenciada en versiones anteriores de
+esta nota). Estructura vigente:
 
-1. Introducción y motivaciones (incluye como subsección 1.4
-   **Descripción del problema** — originalmente era una sección
-   independiente que David pidió agregar; se integró aquí como
-   subsección porque el codirector la vio más como continuación natural
-   del estado del arte que como un apartado aparte. Sus antiguas
-   subsecciones internas — Planteamiento, Evidencia, Consecuencias —
-   ahora son `\subsubsection` dentro de ella.)
-2. Limitaciones de la investigación
-3. Hipótesis de la tesis
-4. Objetivos de la tesis
-5. Aproximación a la solución
-6. Plan de trabajo
-7. Publicaciones generadas
+1. Introducción y motivaciones — 3 subsecciones exactas, tal como las
+   pide la plantilla, sustituyendo la vieja subsección "Descripción del
+   problema" con sus subsubsections (Planteamiento/Evidencia/
+   Consecuencias), todas eliminadas en este cambio:
+   - 1.1 **Contexto del problema** (identificación del problema)
+   - 1.2 **Importancia del problema** (justificación del problema)
+   - 1.3 **Trabajo relacionado** (relevancia del problema)
+   - cierre de la sección SIN subsección propia (párrafo suelto):
+     la plantilla pide que aquí se identifique el factor de innovación
+     de la investigación.
+2. Delimitaciones y limitaciones del trabajo (con 2.1 Delimitaciones y
+   2.2 Limitaciones como subsecciones — la plantilla distingue ambos
+   conceptos: delimitaciones = alcance que decide el candidato no
+   cubrir; limitaciones = factores fuera de su control)
+3. Hipótesis del trabajo
+4. Objetivos del trabajo
+5. Metodología (antes "Aproximación a la solución" — se renombró para
+   igualar el nombre exacto de la plantilla; mismo contenido/label
+   actualizado a `sec:metodologia`)
+6. Estructura preliminar de la tesis (sección **nueva**, no existía
+   antes de este cambio — describe los capítulos que tendrá el
+   documento de tesis final, no el protocolo)
+7. Plan de trabajo
 8. Bibliografía fundamental (ya sin la subsección "Accesos por Internet",
    eliminada el 2026-08-17 por quedar obsoleta frente al flujo unificado
    de `biblatex-apa`)
 
+"Aprobación" (firmas) se mantiene como página final sin numerar
+(`\section*`), fuera de las 8 secciones de la plantilla — es un
+requisito de entrega, no parte del contenido del tema de investigación.
+
+**Diferencias deliberadas frente a la plantilla** (decisiones de David,
+2026-08-31): se mantiene un `Abstract`/`Keywords` en inglés en
+`portada.tex` junto con el `Resumen`/`Palabras clave` en español, aunque
+la plantilla solo pide estos últimos. Se eliminó por completo la sección
+"Publicaciones generadas" que existía antes (no está en la plantilla).
+
 Cada sección es un archivo independiente en `protocolo/secciones/`
 (numerados según el orden de arriba: `01-introduccion.tex`,
-`02-limitaciones.tex`, ..., `09-firmas.tex`), incluido desde
+`02-limitaciones.tex`, `03-hipotesis.tex`, `04-objetivos.tex`,
+`05-metodologia.tex`, `06-estructura-tesis.tex`, `07-plan-trabajo.tex`,
+`08-bibliografia.tex`, `09-firmas.tex`), incluido desde
 `protocolo/main.tex` vía `\input`. Mantener esta separación al editar:
 no fusionar secciones en `main.tex`. Si se vuelve a reordenar/fusionar
 alguna sección, renombrar también los archivos para que el número del
@@ -289,9 +313,94 @@ extra pegado justo después de palabras entre comillas. Se verificó
 renderizando el PDF. `CFONT` evita el problema porque solo envuelve el
 texto en `\color{}`, sin pasar por `ulem`.
 
+**Texto eliminado tachado además de en rojo (agregado 2026-09-01):**
+además de colorearse, lo eliminado ahora sale con `\sout` (tachado) —
+`\DIFdel` queda como `{\protect\color{red}\sout{#1}}`. Esto sí usa
+`ulem` (con la opción `normalem`, para no pisar `\emph`), así que en
+principio reintroduce el riesgo del párrafo anterior. Se evitó con dos
+piezas, ambas verificadas compilando y renderizando el PDF en sandbox
+antes de aplicarlas:
+
+1. `\DIFdelbegin` (y su variante `\DIFdelbeginFL` de figuras/tablas) ya
+   no son macros vacías: ahora hacen
+   `\begingroup\catcode`\"=12\relax` — es decir, mientras dura el
+   bloque de texto eliminado, la comilla `"` deja de ser el carácter
+   activo de `babel-spanish` y pasa a ser un carácter "ordinario" común
+   y corriente. `\DIFdelend`/`\DIFdelendFL` hacen `\endgroup` para
+   restaurarlo justo después. Esto es necesario porque el problema no
+   es *qué* significa `"` (eso sí se podría cambiar en caliente con
+   `\shorthandoff{"}`, se probó y **no alcanza**: para cuando el cuerpo
+   de un comando ve su propio `\shorthandoff`, el argumento ya se
+   tokenizó con `"` activo) sino que sea un carácter activo *en
+   absoluto* en el momento en que se lee el texto — por eso el cambio
+   tiene que ser de `\catcode` y tiene que ocurrir en `\DIFdelbegin`,
+   antes de que se lea el `{...}` de `\DIFdel`, no dentro de la
+   definición de `\DIFdel` misma (ahí ya sería tarde, mismo problema que
+   con `\shorthandoff`). Efecto secundario menor y aceptado: una
+   comilla `"` dentro de texto tachado sale como comilla recta "pelada"
+   en vez de pasar por `\DeclareQuoteStyle{straightsp}` — visualmente
+   son la misma comilla recta, así que no se nota.
+2. Bug propio de `latexdiff` 1.3.2 (no de este proyecto, confirmado
+   comparando la salida cruda de `latexdiff-vc` antes de nuestro
+   post-proceso): cuando el documento carga `graphicx` (que `main.tex`
+   sí carga), `latexdiff` agrega un bloque `%DIF HIGHLIGHTGRAPHICS
+   PREAMBLE` que vuelve a redefinir `\DIFdelend`/`\DIFdelendFL` (para
+   además restaurar `\includegraphics`) — pero por un error de
+   copiar/pegar en el propio `latexdiff`, esa redefinición llama a
+   `\DIFOaddend`/`\DIFOaddendFL` (el `\DIFaddend` original guardado) en
+   vez de `\DIFOdelend`/`\DIFOdelendFL` (el `\DIFdelend` original
+   guardado, el que nosotros acabamos de poner con el `\endgroup`). Con
+   el `\DIFdelend` vacío de siempre esto pasaba desapercibido (ambos no
+   hacen nada); en cuanto `\DIFdelend` hace algo real, el `\begingroup`
+   de `\DIFdelbegin` se queda sin cerrar y `pdflatex` termina con
+   grupos sin cerrar acumulados (`\end occurred inside a group at level
+   N`) — se reprodujo en sandbox exactamente así antes de corregirlo.
+   `scripts/diff-review.js` corrige esas dos líneas después de correr
+   `latexdiff-vc`.
+
+**Corrección (2026-09-01, mismo día):** la primera versión de este fix
+se probó en un sandbox sin `hyperref` en el preámbulo y de ahí salió
+una conclusión equivocada ("el post-proceso apuntaba a nombres que
+latexdiff nunca genera") que quedaba escrita aquí antes — no era
+cierto, quedó corregido abajo. Al aplicarlo sobre el `main-diff.tex`
+real de David no salió tachado; comparando el archivo real contra el
+del sandbox se encontró la causa: **el nombre de la macro que trae el
+color de verdad depende de si el documento carga `hyperref`** (que
+`main.tex` sí carga). Con `hyperref` presente, `latexdiff` agrega un
+bloque extra `%DIF HYPERREF PREAMBLE` que mueve el color/tamaño a
+`\DIFaddtex`/`\DIFdeltex`, y deja `\DIFadd`/`\DIFdel` como simples
+envoltorios `\texorpdfstring{...}{...}` (para que los marcadores del
+PDF —índice, hipervínculos— no lleven `\color` adentro, que ahí sí
+rompería). Sin `hyperref`, el color vive directo en `\DIFadd`/`\DIFdel`,
+sin la capa `tex`. Se confirmó generando el diff real con y sin
+`\usepackage{hyperref}` en dos sandboxes — mismo `latexdiff`, mismo
+`--type=CFONT`, distinto resultado solo por eso. `scripts/diff-review.js`
+ahora prueba los dos nombres posibles en cada caso (`\DIFadd` o
+`\DIFaddtex`; `\DIFdel` o `\DIFdeltex`) y solo modifica el que de
+verdad trae `\protect\color{...}` — el otro no hace match y no pasa
+nada. Volví a probar de punta a punta con el preámbulo real (`hyperref`
++ `graphicx` + `biblatex-apa`+biber + `\tableofcontents`) y ahora sí
+sale tachado, sin romper el índice ni los hipervínculos.
+
 Archivos generados por `npm run diff` (`protocolo/main-diff.tex` y
 `protocolo/build-diff/`) están en `.gitignore` — son temporales y se
 regeneran en cualquier momento, no se versionan.
+
+**Bug encontrado y corregido (2026-09-01): podían quedar dos archivos
+`main-diff*.tex`.** `latexdiff-vc` nombra su salida según la referencia
+comparada (ej. `main-diffenvio-director-2026-08-28.tex`), y el script la
+renombra a `main-diff.tex` al terminar. Si ya había un `main-diff.tex`
+de una corrida anterior cuando arrancaba la siguiente, quedaban dos
+archivos que hacían match con "empieza con `main-diff`, termina en
+`.tex`" al mismo tiempo, y el script podía agarrar el viejo (ya
+procesado) en vez del recién generado — dejando el nuevo sin procesar,
+sin compilar y sin borrar, tirado en `protocolo/`. `scripts/diff-review.js`
+ahora borra cualquier `main-diff*.tex` sobrante **antes** de generar uno
+nuevo, así que después de correr `npm run diff` siempre debe quedar
+solo uno. Si alguna vez aparece un archivo suelto tipo
+`main-diffenvio-director-*.tex` (de antes de este fix), se puede borrar
+sin problema — es un archivo temporal sin usarse, no forma parte del
+protocolo.
 
 **Ciclo completo de trabajo:**
 
@@ -301,7 +410,9 @@ regeneran en cualquier momento, no se versionan.
    asegurarse de que ese estado exacto esté comiteado** (commit
    obligatorio — ver nota abajo), y **después** correr
    `npm run tag:review`. Esto deja una etiqueta apuntando exactamente a
-   "lo que el director ya vio".
+   "lo que el director ya vio". Al hacer `git push` después, la etiqueta
+   se sube sola (ver nota de `push.followTags` abajo) — no hace falta un
+   paso aparte.
 3. Seguir trabajando y comiteando como siempre.
 4. En cualquier momento (para revisar el propio avance, o antes de la
    siguiente entrega), correr `npm run diff` para generar
@@ -322,6 +433,27 @@ diff` no reflejaría correctamente "lo que cambió desde que se lo mandé al
 director", porque la etiqueta no representa lo que en verdad se le mandó.
 Por eso el paso 2 dice explícitamente: comitear primero, etiquetar
 después — en ese orden, siempre.
+
+**`git push` normal no sube tags (bug encontrado 2026-08-28):** David
+comiteó, corrió `npm run tag:review` y luego `git push`, pero la
+etiqueta `envio-director-2026-08-28` no aparecía en GitHub
+(`github.com/LuisPerezcx/ProtocoloTesis/tags`). Causa: por defecto, git
+solo sube los commits de la rama con `git push` — las etiquetas hay que
+subirlas aparte (`git push origin <tag>`, o todas juntas con
+`git push --tags`). Para no tener que acordarse de este paso extra cada
+vez, se configuró en este repo (**solo local, no `--global`** — no afecta
+otros repos de David en la misma máquina):
+
+```bash
+git config push.followTags true
+```
+
+Con esto, un `git push` normal también sube automáticamente cualquier
+tag anotado en el commit que se está subiendo (incluye las
+`envio-director-*` creadas por `npm run tag:review`). Si David clona el
+repo en otra máquina (ej. la de Windows) o alguien más lo clona, esta
+configuración **no viaja con el repo** — es local a cada copia — así que
+hay que volver a correrla ahí si se quiere el mismo comportamiento.
 
 ## Cómo ayudar en este proyecto
 

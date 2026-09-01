@@ -1,35 +1,28 @@
 \section{Introducción y motivaciones}
 \label{sec:introduccion}
 
-% Extensión sugerida: 300–700 palabras.
-% Debe dejar establecido: (1) situación actual del área, (2) justificación
-% del interés de la investigación, (3) problemas no resueltos que motivan
-% este trabajo. Todas las afirmaciones deben respaldarse con referencias.
+% Extensión sugerida por la plantilla institucional (Formato_Tema_Investigacion):
+% 3,000-3,500 palabras. Todas las afirmaciones deben respaldarse con referencias.
+%
+% Estructura ajustada 2026-08-31 según recomendación del seminario de tesis,
+% confirmada contra la plantilla institucional: exactamente 3 subsecciones
+% (Contexto del problema / Importancia del problema / Trabajo relacionado)
+% más un párrafo de cierre SIN subsección propia que identifique el factor
+% de innovación de la investigación (así lo pide la plantilla). Se
+% eliminaron las subsecciones vacías previas (Situación actual del área,
+% Justificación, Problemas no resueltos, Descripción del problema con sus
+% subsubsections Planteamiento/Evidencia/Consecuencias) y se redistribuyó
+% la prosa ya redactada entre las 3 subsecciones nuevas -- ningún párrafo
+% se reescribió en este cambio, solo se reubicó.
 
 Resumen del trabajo previo no realizado por el candidato y que constituye
 la base de la propuesta.
 
-\subsection{Situación actual del área}
-% Estado del arte y resultados de los que se parte.
-
-\subsection{Justificación}
-% Por qué es relevante investigar en esta área.
-
-\subsection{Problemas no resueltos}
-% Motivación concreta que llevó al candidato a esta investigación.
-
-\subsection{Descripción del problema}
-\label{sec:descripcion-problema}
-
-% Antes era una sección independiente (2. Descripción del problema);
-% se integró aquí como subsección de la Introducción por sugerencia del
-% codirector (comentarios en main4_comentarios.pdf, 2026-08-17). Aquí se
-% plantea de forma precisa y acotada el problema específico que la tesis
-% atacará. Se recomienda responder:
-%   - ¿Cuál es el problema exacto (no el área general)?
-%   - ¿Quién lo sufre / en qué contexto se manifiesta?
-%   - ¿Qué evidencia hay de que es un problema real y no resuelto?
-%   - ¿Qué pasa si no se resuelve (consecuencias)?
+\subsection{Contexto del problema}
+\label{sec:contexto-problema}
+% Situación actual del área y resultados de los que se parte
+% (identificación del problema). Aquí vive la narrativa SE 3.0 / vibe
+% coding / SE 2.0 vs SE 3.0 que ya estaba redactada.
 
 En la actualidad, la ingeniería de software está migrando hacia lo que \textcite{hassan2026se3} denomina SE 3.0 o "ingeniería de software agéntica": en la cual estas herramientas de asistencia basadas en modelos de lenguaje de gran tamaño (LLMs) dejan de operar como simples "copilotos" para convertirse en "colaboradores inteligentes", los cuales son capaces de razonar sobre el contexto y la intención de las tareas de desarrollo así como en participar en la toma de decisiones de manera autónoma.
 
@@ -38,23 +31,40 @@ Dentro de este contexto surge el llamado \textit{vibe coding}, término acuñado
 De acuerdo con \textcite{hassan2026se3}, la ingeniería de software asistida por IA (SE 2.0) no utiliza de manera efectiva la capacidad de los modelos de lenguaje para razonar sobre la intención, ya que comparan el uso de estas herramientas con un copiloto, que ejecuta tareas de codificación sin comprender el contexto completo. De modo que estas herramientas trabajan replicando el rol de un desarrollador humano, pero sin la capacidad de razonar sobre la intención y los principios de la ingeniería de software.
 Por el contrario, la ingeniería de software agéntica (SE 3.0) pretende aprovechar la capacidad de los modelos de lenguaje para razonar sobre la intención, de modo que "son capaces de comprender y razonar sobre los principios de la ingeniería de software y las intenciones" \parencite[Abstract, traducción propia]{hassan2026se3}.
 
+% PENDIENTE (comentario del codirector, main4_comentarios.pdf p.5): aterrizar
+% el cierre de este bloque en el problema ya identificado: el uso de LLMs
+% para generar código sin respetar los roles tradicionales de IS, replicando
+% la problemática que ya ocurre con equipos humanos. Camino acordado
+% 2026-08-28: reforzar con \parencite{fernandezyfernandez2026rsm} (Sección 1,
+% Introducción) -- "A less-explored dimension of the agentic paradigm is the
+% possibility of coordinating multiple LLM tools with differentiated roles" --
+% para sustentar que la práctica actual (herramientas tipo copiloto) no
+% diferencia roles. Pendiente de que David integre la cita en su redacción.
+
+\subsection{Importancia del problema}
+//todo
+\label{sec:importancia-problema}
+% Justificación del interés de investigar en esta área -- la plantilla
+% institucional pide que se fundamente, idealmente, en datos numéricos.
+% PENDIENTE DE REDACTAR: por qué importa resolver el problema descrito en
+% "Contexto del problema" (ej. desarrollar las consecuencias ya insinuadas
+% de pasada arriba: confiabilidad arquitectónica del código, deterioro de
+% competencias técnicas de los desarrolladores -- aquí sí hay que
+% desarrollarlas, no solo mencionarlas).
+
+\subsection{Trabajo relacionado}
+\label{sec:trabajo-relacionado}
+% Investigaciones similares ya desarrolladas que evidencian que el
+% problema no está resuelto (relevancia del problema). Aquí vive la
+% narrativa de MetaGPT/ChatDev/RSM y el hueco de literatura ya redactados.
+
 Como respuesta a estos retos han surgido distintas estrategias de coordinación multiagente dentro de la ingeniería de software agéntica. Sistemas como MetaGPT \parencite{hong2024metagpt} y ChatDev \parencite{qian2024chatdev} plantean una organización basada en roles, donde los agentes especializados participan en diferentes etapas del desarrollo. MetaGPT utiliza procedimientos operativos estandarizados mediante secuencias de prompts para disminuir la propagación de errores que puede surgir al encadenar modelos de forma ingenua, mientras que ChatDev organiza la comunicación entre agentes especializados en las fases de diseño, codificación y pruebas mediante una estructura de diálogo. Siguiendo este mismo principio, \textcite{fernandezyfernandez2026rsm} proponen el Role Specialization Model (RSM), que lleva la especialización de roles hacia las propias herramientas de asistencia: cada herramienta recibe una responsabilidad específica (arquitecto, analista, especialista) de acuerdo con sus capacidades, de modo que sus contribuciones se complementen y se minimice el solapamiento entre funciones.
 
 Sin embargo, esta separación de responsabilidades no se sostuvo por completo en la ejecución real del RSM. \textcite{fernandezyfernandez2026rsm} identifican, entre otros factores, el costo cognitivo asociado con cambiar de herramienta a mitad de una tarea, que llevó a que el rol de analista asumiera responsabilidades propias del especialista, como la refactorización arquitectónica. Por otra parte, \textcite{feng2025heteroswarms} muestran que la selección conjunta del modelo asignado a cada rol dentro de un sistema multiagente puede mejorar de manera considerable el desempeño frente a configuraciones homogéneas.
 A partir de la literatura revisada, se observa que tanto la especialización de roles como la heterogeneidad de modelos por rol han sido estudiadas de manera independiente. Sin embargo, la combinación de roles especializados con heterogeneidad de modelos completa (no parcial, como en RSM) no ha sido evaluada de forma controlada frente a un agente único como línea base, dentro de un entorno real de desarrollo de software.
 
+% Cierre de la sección, sin subsección propia (así lo pide la plantilla
+% institucional: "como cierre de esta sección deberá identificarse el
+% factor de innovación que se pretende entregar con la investigación").
+
 Por lo tanto, esto lleva a preguntarse si un modelo de orquestación multiagente con roles especializados y heterogeneidad completa de modelos tendrá un desempeño superior a un agente único en tareas de desarrollo de software asistido por IA. Esta pregunta constituye el problema específico que la tesis abordará.
-
-% PENDIENTE (comentario del codirector, main4_comentarios.pdf p.5): aterrizar
-% el cierre de este bloque en el problema ya identificado: el uso de LLMs
-% para generar código sin respetar los roles tradicionales de IS, replicando
-% la problemática que ya ocurre con equipos humanos.
-
-\subsubsection{Planteamiento del problema}
-% Enunciado claro y acotado del problema.
-
-\subsubsection{Evidencia del problema}
-% Datos, casos, referencias que sustentan que el problema existe.
-
-\subsubsection{Consecuencias de no resolverlo}
-% Impacto de dejar el problema sin atender.
