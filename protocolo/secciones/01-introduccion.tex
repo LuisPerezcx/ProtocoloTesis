@@ -31,15 +31,13 @@ Dentro de este contexto surge el llamado \textit{vibe coding}, término acuñado
 De acuerdo con \textcite{hassan2026se3}, la ingeniería de software asistida por IA (SE 2.0) no utiliza de manera efectiva la capacidad de los modelos de lenguaje para razonar sobre la intención, ya que comparan el uso de estas herramientas con un copiloto, que ejecuta tareas de codificación sin comprender el contexto completo. De modo que estas herramientas trabajan replicando el rol de un desarrollador humano, pero sin la capacidad de razonar sobre la intención y los principios de la ingeniería de software.
 Por el contrario, la ingeniería de software agéntica (SE 3.0) pretende aprovechar la capacidad de los modelos de lenguaje para razonar sobre la intención, de modo que "son capaces de comprender y razonar sobre los principios de la ingeniería de software y las intenciones" \parencite[Abstract, traducción propia]{hassan2026se3}.
 
-% PENDIENTE (comentario del codirector, main4_comentarios.pdf p.5): aterrizar
-% el cierre de este bloque en el problema ya identificado: el uso de LLMs
-% para generar código sin respetar los roles tradicionales de IS, replicando
-% la problemática que ya ocurre con equipos humanos. Camino acordado
-% 2026-08-28: reforzar con \parencite{fernandezyfernandez2026rsm} (Sección 1,
-% Introducción) -- "A less-explored dimension of the agentic paradigm is the
-% possibility of coordinating multiple LLM tools with differentiated roles" --
-% para sustentar que la práctica actual (herramientas tipo copiloto) no
-% diferencia roles. Pendiente de que David integre la cita en su redacción.
+Por otra parte, \textcite{agarwal2026codingagents} señalan que la práctica actual del desarrollo de software asistido por IA se diferencia en dos paradigmas distintos: el paradigma de codificación pre-agente el cual consiste en agentes de codificación basados en IDEs, los cuales se integran directamente en los entornos de desarrollo y proporcionan asistencia en tiempo real, mientras que el paradigma de codificación agéntica consiste en IDEs o de agentes de codificación basados en web  a nivel de repositorio del proyecto, los cuales operan de manera autónoma y colaborativa, tomando decisiones sobre la implementación del código sin tanta intervención humana.
+
+Para el estudio de \textcite{agarwal2026codingagents}, analizaron 1197 repositorios que utilizan herramientas de asistencia de codificación, los cuales dividieron en dos grupos: los repositorios que ya tenían configurada una herramienta de asistencia tipo IDE (Copilot, Cursor, etc.) antes de su primer pull request agéntico (IF), y los repositorios que no tenían ese historial previo (AF).
+
+No obstante, los resultados evidenciaron que los repositorios AF mostraron un aumento del 76.6\% en la cantidad de líneas de código añadidas, mientras que los repositorios IF mostraron una disminución del 6.3\% en la cantidad de líneas de código añadidas, sin embargo, ambos grupos mostraron un aumento de entre 34.9\% y 42.9\% de la complejidad cognitiva del código producido, lo cual sugiere que la adopción de agentes autónomos genera ganancias en la velocidad de desarrollo cuando no existe un historial previo de uso de herramientas de IDE, pero también aumenta la complejidad cognitiva del código producido.
+
+Esto se debe, en parte, a que no se ha explorado de manera sistemática la posibilidad de coordinar múltiples herramientas de asistencia con roles diferenciados \parencite{fernandezyfernandez2026rsm}, lo cual podría permitir que cada herramienta se especialice en una función específica dentro del proceso de desarrollo, reduciendo así la complejidad cognitiva del código producido y mejorando la confiabilidad arquitectónica del mismo.
 
 \subsection{Importancia del problema}
 //todo

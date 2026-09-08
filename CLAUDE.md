@@ -455,6 +455,26 @@ repo en otra máquina (ej. la de Windows) o alguien más lo clona, esta
 configuración **no viaja con el repo** — es local a cada copia — así que
 hay que volver a correrla ahí si se quiere el mismo comportamiento.
 
+**Corrección importante (encontrada 2026-09-01):** esta nota ya decía
+"tag anotado" arriba, pero `scripts/tag-review.js` en realidad creaba
+etiquetas **ligeras** (`git tag nombre`, sin `-a`/`-m`) — contradiciendo
+su propia documentación. `push.followTags` **solo sube etiquetas
+anotadas**; con una ligera, no hace nada, nunca, por más veces que se
+haga `git push` — no es un tema de "se subirá la próxima vez", ligera
+simplemente no aplica. Esto se comprobó armando un repo de prueba: la
+etiqueta ligera nunca llegó al remoto después de varios `git push` con
+`followTags` activo, mientras que una anotada sí llegó en el primer
+push. Efecto real: la etiqueta `envio-director-2026-08-28` sí está en
+GitHub porque en su momento se subió **a mano** (`git push origin
+<tag>`, como se documentó arriba cuando se encontró el bug original),
+no porque `push.followTags` la haya subido sola — nunca lo hizo.
+`scripts/tag-review.js` ya se corrigió para crear etiquetas anotadas
+(`git tag -a nombre -m "..."`) — a partir de ahora sí deberían subir
+solas con un `git push` normal. Cualquier etiqueta `envio-director-*`
+creada con la versión vieja del script (ligera) que no aparezca en
+GitHub necesita subirse una vez a mano con
+`git push origin <nombre-de-la-etiqueta>`.
+
 ## Cómo ayudar en este proyecto
 
 - Motor por defecto: pdflatex. No cambiar a xelatex/lualatex salvo que
