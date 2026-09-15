@@ -63,9 +63,9 @@ En la práctica, cuando se encuentre un artículo relevante:
 2. Si el artículo *solo* existe en arXiv (o similar) y no se encuentra
    evidencia de que haya pasado arbitraje, **no se agrega a
    `bibliografia.bib` como cita citable todavía**. Se deja registrado
-   como "seguimiento, no citar" en la nota correspondiente de
-   `articulos/notas/`, y se revisa de nuevo más adelante por si ya se
-   publicó.
+   como "seguimiento, no citar" en el vault de Obsidian (ver sección
+   siguiente, "Dónde vive cada tipo de referencia"), y se revisa de
+   nuevo más adelante por si ya se publicó.
 3. Excepción de facto: el propio artículo del director (RSM) todavía no
    tiene venue confirmada en este repo — verificar su estado de
    publicación cuando David lo confirme, y actualizar esta nota.
@@ -76,8 +76,41 @@ tenían venue arbitrada (NeurIPS 2025, NeurIPS 2025, ICLR 2026) y se
 citan por su DOI/página de proceedings oficial; otros cuatro
 (AgentCARD, TeamBench, EntCollabBench, y una survey de colaboración
 multiagente) solo estaban en arXiv sin venue confirmada, así que se
-dejaron fuera del `.bib` citable y solo quedaron como registro de
-seguimiento en `articulos/notas/orquestacion-especializacion-multiagente-2025-2026.md`.
+dejaron fuera del `.bib` citable como registro de seguimiento (en su
+momento en una nota de este repo; desde 2026-09-09 ese seguimiento vive
+en el vault, ver sección siguiente).
+
+## Dónde vive cada tipo de referencia (protocolo vs. vault de Obsidian)
+
+Regla explícita de David (2026-09-09), para que cualquier sesión futura
+sepa dónde poner cada cosa sin tener que preguntarlo de nuevo:
+
+- **`bibliografia.bib` (este repo) solo contiene lo que ya está citado
+  en el protocolo, o lo que se va a citar de inmediato.** Nunca agregar
+  ahí una referencia "por si acaso", "para no perderla", o porque David
+  todavía no la ha leído — aunque ya tenga venue arbitrada confirmada.
+- **Todo lo demás vive en el vault de Obsidian**
+  (`~/dev/Notas/maestria/tesis/`, ver skill `notas-obsidian`):
+  - Artículos ya leídos/usados (o candidatos serios ya evaluados): una
+    nota por artículo en `articulos/<slug>.md` (`tipo: lectura`),
+    indexada en `_indice.md` bajo "Artículos revisados".
+  - Candidatos sin leer todavía, preprints sin venue arbitrada
+    confirmada, y "leads" de segunda mano (una referencia que aparece
+    citada dentro del related work de *otro* paper, no encontrada por
+    búsqueda propia): todo eso va a `lecturas-pendientes.md`
+    (`tipo: idea`), no a una nota de lectura propia y mucho menos al
+    `.bib`.
+- **Antes de iniciar una ronda nueva de búsqueda de literatura**,
+  revisar primero `lecturas-pendientes.md` del vault — puede que ya
+  haya un candidato ahí que sirva, antes de buscar desde cero.
+- **Una referencia de segunda mano nunca se cita directamente.** Si
+  aparece mencionada dentro del related work de un paper que sí se leyó
+  (no porque David o el agente la buscaron por su cuenta), se anota en
+  `lecturas-pendientes.md` como lead sin verificar, y se le presenta a
+  David para que decida si vale la pena verificarla (autores, venue,
+  DOI) antes de moverla a una nota de lectura propia o al `.bib`. Citar
+  algo que no se ha leído directamente rompe el método BLASER que pide
+  la rúbrica del profesor ("Respetar la fuente").
 
 ## Revisión de redacción: alertar sobre plagio / parafraseo demasiado cercano
 

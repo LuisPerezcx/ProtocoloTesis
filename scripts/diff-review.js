@@ -10,6 +10,13 @@
  *   npm run diff
  *   npm run diff -- envio-director-2026-08-20
  *
+ * Si la última etiqueta ya apunta al commit actual (HEAD) -- por ejemplo,
+ * porque se corrió "npm run tag:review" antes de revisar el diff en vez de
+ * después -- este script cae automáticamente a la etiqueta anterior que sí
+ * sea distinta de HEAD, avisando por qué. El orden correcto es: primero
+ * "npm run diff" para revisar, y solo después "npm run tag:review" para
+ * marcar que ya se envió.
+ *
  * Requiere tener instalado latexdiff (tlmgr install latexdiff en Mac;
  * en Windows/MiKTeX se instala solo la primera vez, o mpm --install=latexdiff).
  */
@@ -41,7 +48,46 @@ function resolveRef() {
     );
     process.exit(1);
   }
-  return tags[0];
+
+  // Bug encontrado 2026-09-08 (David corrió "npm run tag:review" para
+  // marcar el envío ANTES de correr "npm run diff" para revisarlo, en vez
+  // de después -- el orden correcto es diff primero, tag:review después).
+  // Si la etiqueta más reciente ya apunta a HEAD, comparar contra ella no
+  // muestra nada: no hay ningún commit entre la etiqueta y HEAD, así que
+  // latexdiff-vc genera un PDF sin marcas de color aunque sí haya cambios
+  // reales de por medio (solo que ya están "adentro" de la propia
+  // etiqueta). Para que esto no vuelva a pasar en silencio, si la
+  // etiqueta más reciente == HEAD, caemos automáticamente a la siguiente
+  // etiqueta más reciente que sí sea distinta, avisando por qué.
+  // OJO: las etiquetas son anotadas ("git tag -a"), así que "git rev-parse
+  // <etiqueta>" a secas regresa el hash del OBJETO de la etiqueta, no el
+  // del commit al que apunta -- hay que pedirlo con "^{commit}" para que
+  // siempre resuelva al commit real, sea la etiqueta anotada o ligera.
+  const head = sh("git rev-parse HEAD^{commit}").trim();
+  let idx = 0;
+  while (idx < tags.length && sh(`git rev-parse ${tags[idx]}^{commit}`).trim() === head) {
+    idx += 1;
+  }
+
+  if (idx === 0) {
+    return tags[0];
+  }
+
+  if (idx >= tags.length) {
+    console.error(
+      `Todas las etiquetas "envio-director-*" (${tags.join(", ")}) apuntan al commit actual (HEAD) -- ` +
+        "no hay ningún commit nuevo que comparar. Si crees que sí hay cambios, revisa que los hayas " +
+        'commiteado, o pasa una referencia manualmente: "npm run diff -- <referencia>".'
+    );
+    process.exit(1);
+  }
+
+  console.log(
+    `Aviso: la etiqueta más reciente ("${tags[0]}") ya apunta al commit actual (HEAD) -- probablemente ` +
+      'se corrió "npm run tag:review" antes de revisar el diff, en vez de después. Comparando en su ' +
+      `lugar contra la etiqueta anterior: "${tags[idx]}".`
+  );
+  return tags[idx];
 }
 
 function main() {
