@@ -176,6 +176,45 @@ function main() {
   //    el carácter activo de babel. Las comillas dentro de texto tachado
   //    salen como comilla recta simple (visualmente igual a las demás,
   //    porque el estilo del documento ya es de comillas rectas).
+  //
+  //    Bug encontrado 2026-09-15: "Extra }, or forgotten \endgroup" (via
+  //    \UL@stop) al tachar un fragmento eliminado que contiene un
+  //    \textcite{...}/\parencite{...} YA RESUELTO por biber (es decir, en
+  //    la 2a/3a pasada de pdflatex, después de que corrió biber -- en la
+  //    1a pasada, con la cita todavía sin resolver, no truena). Causa:
+  //    \sout (ulem) procesa su argumento carácter por carácter para dibujar
+  //    la línea de tachado, y ese escaneo no es compatible con el contenido
+  //    que arma biblatex-apa + hyperref para una cita ya resuelta (el
+  //    hipervínculo interno de \textcite). No tiene relación con el bug de
+  //    comillas de babel-spanish de arriba -- es una incompatibilidad
+  //    distinta y ya conocida de ulem con comandos "compuestos" (citas,
+  //    \includegraphics, notas al pie, etc.).
+  //
+  //    Primer intento (descartado, corregido el mismo día): envolver TODO
+  //    el argumento de \DIFdel en un \mbox (`\sout{\mbox{#1}}`) sí evita el
+  //    choque con ulem, pero un \mbox es una caja rígida que no permite
+  //    saltos de línea por dentro -- si el fragmento eliminado es una
+  //    oración larga (no necesariamente con cita), esa oración completa
+  //    queda como una sola "palabra" gigante que ya no puede partirse en
+  //    varias líneas, y se sale de la página (confirmado visualmente en
+  //    sandbox y también en la corrida real de David: exactamente el
+  //    párrafo largo sobre "el cual consiste en agentes de codificación
+  //    basados en IDEs..." se salía del margen derecho).
+  //
+  //    Solución real: en vez de envolver la oración eliminada completa,
+  //    envolver ÚNICAMENTE la propia cita (\textcite{...}/\parencite{...},
+  //    con o sin argumento opcional) en su propio \mbox, sin importar si
+  //    está dentro de \DIFdel, \DIFadd o texto sin cambios -- una cita por
+  //    sí sola es corta (unas pocas palabras) y no necesita partirse a la
+  //    mitad de una línea, así que perder ese único punto de corte no
+  //    afecta el flujo del párrafo. Esto se hace con una pasada de regex
+  //    aparte (ver más abajo) sobre el archivo completo, después de la
+  //    sustitución de \DIFdel/\DIFdeltex (que ahora se queda en
+  //    `\sout{#1}` a secas, igual que antes de este bug). Reproducido y
+  //    corregido en sandbox de punta a punta (pdflatex -> biber -> pdflatex
+  //    x2, con biblatex-apa + hyperref reales): compila limpio, el párrafo
+  //    largo vuelve a partirse en varias líneas dentro del margen, y el
+  //    tachado se sigue viendo bien sobre el texto de la cita.
   let contents = fs.readFileSync(generatedPath, "utf8");
 
   // Requiere ulem (con normalem para no pisar \emph) antes de \begin{document}.
@@ -191,7 +230,10 @@ function main() {
     "\\providecommand{\\$1}[1]{{\\protect\\color{blue}#1}}"
   );
   // Eliminado: color + tachado, sin \scriptsize. Mismo truco con \DIFdel /
-  // \DIFdeltex.
+  // \DIFdeltex. Sin \mbox alrededor de #1 -- ver nota del bug 2026-09-15
+  // arriba: bloquear TODO el fragmento eliminado rompía el salto de línea
+  // de oraciones largas. El \mbox que sí hace falta para evitar el choque
+  // con ulem se aplica más abajo, solo alrededor de cada cita individual.
   contents = contents.replace(
     /\\providecommand\{\\(DIFdel|DIFdeltex)\}\[1\]\{\{\\protect\\color\{red\}[^}]*#1\}\}/g,
     "\\providecommand{\\$1}[1]{{\\protect\\color{red}\\sout{#1}}}"
@@ -228,6 +270,20 @@ function main() {
   contents = contents.replace(
     /(\\DeclareRobustCommand\{\\DIFdelendFL\}\{)\\DIFOaddendFL /,
     "$1\\DIFOdelendFL "
+  );
+
+  // Envolver cada cita individual (\textcite, \parencite, \autocite, \cite
+  // -- con hasta dos argumentos opcionales tipo \parencite[pre][post]{key})
+  // en su propio \mbox, en TODO el documento (no solo dentro de \DIFdel):
+  // es la solución real al bug de ulem del 2026-09-15 (ver nota arriba) --
+  // aísla únicamente la cita como caja rígida, sin bloquear el salto de
+  // línea del resto de la oración que la rodea. Una cita por sí sola
+  // ("Autor et al. (año)") es corta y no depende de partirse a la mitad,
+  // así que envolverla siempre (incluso fuera de texto tachado) es seguro
+  // y no cambia nada visualmente en el documento normal.
+  contents = contents.replace(
+    /\\(textcite|parencite|autocite|cite)((?:\[[^\]]*\]){0,2})\{([^}]*)\}/g,
+    "\\mbox{\\$1$2{$3}}"
   );
 
   if (generatedPath !== targetTexPath) {

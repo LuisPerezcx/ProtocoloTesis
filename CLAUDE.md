@@ -435,6 +435,49 @@ solo uno. Si alguna vez aparece un archivo suelto tipo
 sin problema — es un archivo temporal sin usarse, no forma parte del
 protocolo.
 
+**Bug encontrado y corregido (2026-09-15): "Extra }, or forgotten
+\endgroup" al tachar texto eliminado que incluye una cita ya resuelta
+por biber.** David corrió `npm run diff` normal (después de comitear y
+sin haber tocado nada raro) y la compilación falló en la 2a pasada de
+pdflatex (la que ya corre después de biber) con ese error, apuntando a
+`\UL@stop` justo al cerrar un `\DIFdel{...}` que contenía
+`\textcite{agarwal2026codingagents}, analizaron `. En la 1a pasada (cita
+todavía sin resolver) no truena — solo pasa una vez que biber ya generó
+el `.bbl` y la cita se expande completa (con el hipervínculo interno que
+arma biblatex-apa + hyperref). Causa: `\sout` (de `ulem`) procesa su
+argumento carácter por carácter para dibujar la línea de tachado, y ese
+escaneo no es compatible con el contenido ya armado de una cita
+resuelta — es una incompatibilidad conocida de `ulem` con comandos
+"compuestos" (citas, `\includegraphics`, notas al pie, etc.), sin
+relación con el bug de comillas de babel-spanish de arriba.
+
+*Primer intento, descartado el mismo día:* envolver TODO el argumento
+de `\DIFdel` en un `\mbox` (`\sout{\mbox{#1}}`) sí evita el choque con
+`ulem`, y así se mandó a probar inicialmente — pero un `\mbox` es una
+caja rígida que no permite saltos de línea por dentro. Si el fragmento
+eliminado es una oración larga (tenga o no una cita), esa oración
+completa queda como una única "palabra" gigante que ya no puede
+partirse en varias líneas y se sale del margen derecho de la página.
+David lo detectó de inmediato en su propia corrida: el párrafo largo
+sobre "el cual consiste en agentes de codificación basados en IDEs..."
+(sin ninguna cita adentro) se salía visiblemente de la página.
+
+*Solución real:* en vez de envolver la oración eliminada completa, se
+envuelve ÚNICAMENTE la cita en sí (`\textcite{...}`/`\parencite{...}`,
+con hasta dos argumentos opcionales), sin importar si está dentro de
+`\DIFdel`, `\DIFadd` o texto sin cambios. Una cita por sí sola es corta
+("Autor et al., año") y no depende de partirse a la mitad de una línea,
+así que perder ese único punto de corte no afecta el flujo del párrafo
+que la rodea. `scripts/diff-review.js` ahora deja `\DIFdel`/`\DIFdeltex`
+como `\sout{#1}` a secas (igual que antes de este bug) y agrega una
+pasada de regex aparte sobre todo el archivo que envuelve cada
+`\textcite`/`\parencite`/`\autocite`/`\cite` en su propio `\mbox`.
+Verificado en sandbox de punta a punta, con el pipeline real (git +
+`latexdiff-vc` + el script sin modificar a mano, no solo parches
+manuales sobre el `.tex` generado): compila limpio, el párrafo largo
+vuelve a partirse en varias líneas dentro del margen, y el tachado se
+sigue viendo bien sobre el texto de una cita.
+
 **Ciclo completo de trabajo:**
 
 1. Trabajar y hacer commits normalmente en `01-introduccion.tex` (o la
