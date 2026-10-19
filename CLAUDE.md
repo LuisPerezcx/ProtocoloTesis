@@ -307,7 +307,7 @@ los PDFs finales entregados al director/comité sí se guardan aquí y sí se
 suben a git, como respaldo histórico de qué versión se entregó y cuándo.
 Convención de nombre sugerida: `protocolo_v<n>_<AAAA-MM-DD>.pdf`.
 
-## Flujo de revisión con el director (git tags + latexdiff)
+## Flujo de revisión con el director / seminario (git tags + latexdiff)
 
 Sugerencia del propio director (2026-08-27, por correo): que el texto
 nuevo/cambiado desde la última vez que le mandó avances aparezca en otro
@@ -317,12 +317,41 @@ comandos npm (no es un proyecto de Node real, `package.json` solo se usa
 como task runner multiplataforma — no requiere `npm install`, solo Node
 instalado):
 
-- `npm run tag:review` → `scripts/tag-review.js`: crea una etiqueta de git
-  `envio-director-YYYY-MM-DD` apuntando al commit actual (si ya existe una
-  con esa fecha, agrega sufijo `-2`, `-3`, ...).
-- `npm run diff` (o `npm run diff -- <tag-o-commit>`) → `scripts/diff-review.js`:
-  1. Resuelve la referencia a comparar: el argumento si se dio uno, o si
-     no la etiqueta `envio-director-*` más reciente.
+**Dos líneas de etiquetas (agregado 2026-10-19):** a partir de esta fecha,
+la **clase/seminario de Protocolo de Tesis** también pide ver los avances
+marcados (azul = agregado, rojo = eliminado), no solo el director. Por eso
+hay DOS líneas independientes de etiquetas, cada una con su propio prefijo:
+
+- `envio-director-YYYY-MM-DD` → lo que vio el director.
+- `envio-seminario-YYYY-MM-DD` → lo que vio el seminario/clase.
+
+Se mantienen separadas para poder decir "lo que vio cada uno" por su cuenta
+cuando sus entregas NO coinciden. Cuando sí coinciden (ambos ven el mismo
+commit, como pasó la primera vez que el seminario empezó a pedirlo, el
+2026-10-19), se marcan las dos de una sola corrida con `ambos` — las dos
+etiquetas apuntan al mismo commit, que es válido en git. El nombre de la
+materia se decidió abreviar como "seminario" en el prefijo (David, 2026-10-19).
+
+- `npm run tag:review` → `scripts/tag-review.js`: crea etiquetas de git
+  anotadas `<prefijo>-YYYY-MM-DD` apuntando al commit actual (si ya existe
+  una con esa fecha, agrega sufijo `-2`, `-3`, ...). Acepta argumentos para
+  elegir destinatario:
+  - `npm run tag:review` (sin args) → **solo director** (comportamiento
+    histórico, no cambió).
+  - `npm run tag:seminario` (o `npm run tag:review -- seminario`) → solo
+    seminario.
+  - `npm run tag:ambos` (o `npm run tag:review -- ambos`, o
+    `-- director seminario`) → ambas etiquetas en el mismo commit.
+  - Para agregar un tercer destinatario en el futuro basta con sumar una
+    entrada al objeto `DESTINATARIOS` de `scripts/tag-review.js` (y, si se
+    quiere, un atajo en `package.json`).
+- `npm run diff` (o `npm run diff -- <destinatario-o-tag-o-commit>`) → `scripts/diff-review.js`:
+  1. Resuelve la referencia a comparar: si el argumento es un destinatario
+     conocido (`director` o `seminario`, p.ej. `npm run diff -- seminario`
+     o el atajo `npm run diff:seminario`), usa la etiqueta más reciente de
+     ESA línea; si es cualquier otra cosa, se trata como referencia literal
+     de git (commit o etiqueta concreta); sin argumento usa la etiqueta
+     `envio-director-*` más reciente (comportamiento histórico).
   2. Corre `latexdiff-vc --git -r <ref> --flatten --type=CFONT main.tex`
      dentro de `protocolo/`, generando `protocolo/main-diff.tex`.
   3. Post-procesa ese `.tex` con una regex para que `\DIFaddtex`/`\DIFdeltex`
@@ -482,22 +511,26 @@ sigue viendo bien sobre el texto de una cita.
 
 1. Trabajar y hacer commits normalmente en `01-introduccion.tex` (o la
    sección que sea), como cualquier otro cambio de git.
-2. Cuando llegue el momento de mandarle avances al director: **primero
-   asegurarse de que ese estado exacto esté comiteado** (commit
-   obligatorio — ver nota abajo), y **después** correr
-   `npm run tag:review`. Esto deja una etiqueta apuntando exactamente a
-   "lo que el director ya vio". Al hacer `git push` después, la etiqueta
-   se sube sola (ver nota de `push.followTags` abajo) — no hace falta un
-   paso aparte.
+2. Cuando llegue el momento de mandar avances: **primero asegurarse de que
+   ese estado exacto esté comiteado** (commit obligatorio — ver nota abajo),
+   y **después** correr el comando de etiqueta según a quién se le mande:
+   `npm run tag:review` (director), `npm run tag:seminario` (seminario) o
+   `npm run tag:ambos` (los dos a la vez, cuando la entrega coincide). Esto
+   deja una etiqueta apuntando exactamente a "lo que ese destinatario ya
+   vio". Al hacer `git push` después, la(s) etiqueta(s) se suben solas (ver
+   nota de `push.followTags` abajo) — no hace falta un paso aparte.
 3. Seguir trabajando y comiteando como siempre.
 4. En cualquier momento (para revisar el propio avance, o antes de la
    siguiente entrega), correr `npm run diff` para generar
    `protocolo/build-diff/main-diff.pdf` con solo lo que cambió desde la
-   última etiqueta `envio-director-*` (o desde una referencia específica
-   con `npm run diff -- <tag-o-commit>`).
-5. Cuando se le mande la siguiente ronda de avances al director: comitear
-   ese nuevo estado y volver a correr `npm run tag:review`, que crea una
-   nueva etiqueta y mueve el marcador hacia adelante.
+   última etiqueta de la línea que interese: `npm run diff` (director),
+   `npm run diff:seminario` (seminario), o desde una referencia específica
+   con `npm run diff -- <tag-o-commit>`. Si la etiqueta más reciente de esa
+   línea ya apunta a HEAD, el script cae automáticamente a la etiqueta
+   anterior **de la misma línea** que sí sea distinta, avisando por qué.
+5. Cuando se mande la siguiente ronda de avances: comitear ese nuevo estado
+   y volver a correr el comando de etiqueta correspondiente, que crea una
+   nueva etiqueta de esa línea y mueve su marcador hacia adelante.
 
 **¿Es obligatorio comitear antes de `npm run tag:review`?** Sí. Un tag de
 git es un puntero inmutable a un commit ya existente, no una foto del

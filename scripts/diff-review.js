@@ -1,21 +1,33 @@
 #!/usr/bin/env node
 /**
- * Genera un PDF de "solo lo que cambió" desde la última vez que le
- * mandaste avances a tu director (o desde la referencia de git que le
- * pases como argumento).
+ * Genera un PDF de "solo lo que cambió" desde la última vez que entregaste
+ * avances (a tu director o al seminario), o desde la referencia de git que
+ * le pases como argumento.
+ *
+ * El argumento puede ser:
+ *   - un destinatario: `director` o `seminario` -> usa la última etiqueta
+ *     de esa línea (envio-director-* / envio-seminario-*, ver
+ *     scripts/tag-review.js);
+ *   - cualquier otra cosa -> se trata como una referencia literal de git
+ *     (una etiqueta concreta o un commit).
  *
  * Uso:
- *   node scripts/diff-review.js                    -> usa la última etiqueta envio-director-*
- *   node scripts/diff-review.js <tag-o-commit>      -> compara contra esa referencia específica
+ *   node scripts/diff-review.js                    -> última etiqueta envio-director-*
+ *   node scripts/diff-review.js director           -> última etiqueta envio-director-*
+ *   node scripts/diff-review.js seminario          -> última etiqueta envio-seminario-*
+ *   node scripts/diff-review.js <tag-o-commit>     -> compara contra esa referencia específica
  *   npm run diff
+ *   npm run diff -- seminario
  *   npm run diff -- envio-director-2026-08-20
+ *   npm run diff:seminario
  *
- * Si la última etiqueta ya apunta al commit actual (HEAD) -- por ejemplo,
+ * Sin argumento usa `director` (comportamiento histórico). Si la última
+ * etiqueta de esa línea ya apunta al commit actual (HEAD) -- por ejemplo,
  * porque se corrió "npm run tag:review" antes de revisar el diff en vez de
- * después -- este script cae automáticamente a la etiqueta anterior que sí
- * sea distinta de HEAD, avisando por qué. El orden correcto es: primero
- * "npm run diff" para revisar, y solo después "npm run tag:review" para
- * marcar que ya se envió.
+ * después -- este script cae automáticamente a la etiqueta anterior de la
+ * MISMA línea que sí sea distinta de HEAD, avisando por qué. El orden
+ * correcto es: primero "npm run diff" para revisar, y solo después
+ * "npm run tag:review" para marcar que ya se envió.
  *
  * Requiere tener instalado latexdiff (tlmgr install latexdiff en Mac;
  * en Windows/MiKTeX se instala solo la primera vez, o mpm --install=latexdiff).
@@ -31,19 +43,37 @@ function sh(cmd, opts = {}) {
 const PROTOCOLO_DIR = path.join(__dirname, "..", "protocolo");
 const OUT_DIR = path.join(PROTOCOLO_DIR, "build-diff");
 
+// Destinatario -> prefijo de etiqueta. Debe coincidir con los prefijos de
+// scripts/tag-review.js. `director` es el default sin argumento.
+const PREFIJOS = {
+  director: "envio-director",
+  seminario: "envio-seminario",
+};
+
 function resolveRef() {
   const argRef = process.argv[2];
-  if (argRef) return argRef;
 
-  const tags = sh('git tag --list "envio-director-*" --sort=-creatordate')
+  // Si el argumento es un destinatario conocido (director/seminario),
+  // resolvemos a la última etiqueta de esa línea. Si es cualquier otra
+  // cosa, se trata como referencia literal de git (commit o etiqueta
+  // concreta). Sin argumento -> director, como siempre.
+  const destinatario = argRef && PREFIJOS[argRef.toLowerCase()] ? argRef.toLowerCase() : null;
+  if (argRef && !destinatario) return argRef;
+
+  const clave = destinatario || "director";
+  const prefijo = PREFIJOS[clave];
+
+  const tags = sh(`git tag --list "${prefijo}-*" --sort=-creatordate`)
     .trim()
     .split("\n")
     .filter(Boolean);
 
   if (tags.length === 0) {
     console.error(
-      'No encontré ninguna etiqueta "envio-director-*". Corre primero "npm run tag:review" ' +
-        "después de la última vez que le mandaste avances a tu director, o pasa un commit/tag " +
+      `No encontré ninguna etiqueta "${prefijo}-*". Corre primero "npm run tag:review${
+        clave === "director" ? "" : " -- " + clave
+      }" ` +
+        `después de la última vez que entregaste avances (${clave}), o pasa un commit/tag ` +
         'manualmente: "npm run diff -- <referencia>".'
     );
     process.exit(1);
@@ -75,7 +105,7 @@ function resolveRef() {
 
   if (idx >= tags.length) {
     console.error(
-      `Todas las etiquetas "envio-director-*" (${tags.join(", ")}) apuntan al commit actual (HEAD) -- ` +
+      `Todas las etiquetas "${prefijo}-*" (${tags.join(", ")}) apuntan al commit actual (HEAD) -- ` +
         "no hay ningún commit nuevo que comparar. Si crees que sí hay cambios, revisa que los hayas " +
         'commiteado, o pasa una referencia manualmente: "npm run diff -- <referencia>".'
     );

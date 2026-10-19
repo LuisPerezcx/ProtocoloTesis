@@ -4,6 +4,9 @@
   "description": "Scripts de apoyo para el protocolo de tesis (no es un proyecto de Node, solo usamos npm como runner de comandos).",
   "scripts": {
     "tag:review": "node scripts/tag-review.js",
-    "diff": "node scripts/diff-review.js"
+    "tag:seminario": "node scripts/tag-review.js seminario",
+    "tag:ambos": "node scripts/tag-review.js ambos",
+    "diff": "node scripts/diff-review.js",
+    "diff:seminario": "node scripts/diff-review.js seminario"
   }
 }
