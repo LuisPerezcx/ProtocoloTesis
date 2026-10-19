@@ -300,6 +300,48 @@ Los PDFs de artículos (`articulos/pdfs/`) están excluidos de git por
 defecto (derechos de autor / peso del repo) — solo se versionan si David
 lo pide explícitamente con `git add -f`.
 
+## Bitácora de lecturas citadas (`npm run lecturas` → Google Sheet)
+
+Agregado 2026-10-19, a pedido del director: llevar (a) una hoja de cálculo
+con los artículos que ya se citan en el protocolo y (b) una carpeta con los
+PDFs de esos artículos. Se automatizó para no mantener nada a mano.
+
+**Fuente de verdad: `protocolo/referencias/bibliografia.bib`.** El script no
+inventa ni mantiene una tabla paralela: lista solo las entradas del `.bib`
+que de verdad aparecen citadas en `protocolo/secciones/*.tex`. (Decisión de
+David, 2026-10-19: la tabla lista *solo lo citado*, no lecturas leídas pero
+aún sin citar — esas siguen viviendo en el vault, ver abajo.)
+
+- `npm run lecturas` → `scripts/lecturas.js` (Node sin dependencias, igual
+  que tag/diff). Parsea el `.bib`, detecta qué claves se citan y en qué
+  subsección (grepeando `secciones/*.tex`), extrae autor/año/título/venue/
+  DOI, cruza con `articulos/pdfs/`, y escribe `articulos/lecturas.csv` +
+  un **reporte de consistencia** por consola: citas en el `.tex` que no
+  están en el `.bib` (error), citados sin PDF, PDFs huérfanos, y entradas
+  del `.bib` aún sin citar (informativo).
+- **Convención de nombres de PDF:** cada PDF va en `articulos/pdfs/<clave-del-bib>.pdf`
+  (ej. `donato2026rolebased.pdf`) para que el script lo cruce automáticamente.
+  Un PDF con otro nombre sale como "huérfano" en el reporte. Descargar el PDF
+  es manual (muchos son de paga); el script solo verifica presencia y nombre.
+- `articulos/lecturas.csv` está en `.gitignore` (generado, se regenera del
+  `.bib` en cualquier momento).
+
+**Google Sheet (lo que se comparte con el director).** David eligió que la
+tabla viva en una Google Sheet compartible por link, no en CSV/Excel local.
+La hoja es *"Tesis - Lecturas citadas (protocolo)"*
+(`https://docs.google.com/spreadsheets/d/1poYlrKHzokCltOCalZfE-Ib1RwXqbdj_FnrM_Vf85ds/edit`),
+en el Drive de David (`luisdavidperez61@gmail.com`).
+
+Limitación conocida (2026-10-19): en este entorno **solo está el conector de
+Google Drive, no el de Google Sheets**. Drive puede *crear* la hoja
+(convierte el CSV) pero **no editarla en su lugar**. Por eso, para
+re-sincronizar la hoja tras correr `npm run lecturas` manteniendo el mismo
+link, hace falta tener prendido el conector de **Google Sheets** en el chat;
+sin él, cada actualización sería un archivo nuevo con link nuevo. Gotcha
+cosmético del alta inicial vía CSV: un `'` al inicio de celda lo interpreta
+Sheets como marca de formato-texto y lo borra (afectó el título de
+`bbc2025vibecoding`: `'Vibe Coding'` → `Vibe Coding'`).
+
 ## Entregas (`entregas/`)
 
 A diferencia del resto de los PDFs (que se regeneran y no se versionan),

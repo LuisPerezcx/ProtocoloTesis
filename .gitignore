@@ -45,6 +45,10 @@ protocolo/build/
 protocolo/main-diff.tex
 protocolo/build-diff/
 
+# Bitácora de lecturas generada por "npm run lecturas" a partir del .bib --
+# se regenera en cualquier momento; la fuente de verdad es bibliografia.bib
+articulos/lecturas.csv
+
 # ============================================
 # Sistema operativo
 # ============================================
