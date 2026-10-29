@@ -12,13 +12,13 @@
 
 \subsection{Delimitaciones}
 \begin{itemize}
-  \item La orquestación se implementa mediante herramientas-agente de codificación accedidas a través de un enrutador de modelos en la nube (OpenRouter), descritas en la Sección~\ref{sec:metodologia}, lo que permite emplear modelos de distintos proveedores sin requerir infraestructura local; en consecuencia, no se contemplan modelos de pesos abiertos desplegados en infraestructura propia.
-  \item La evaluación se limita a la confiabilidad y estructura arquitectónica del código generado, por lo que no se consideran otros aspectos de calidad del software como el rendimiento o la seguridad.
-  \item La comparación se realiza en un entorno controlado de desarrollo sobre lenguajes de programación específicos (TypeScript y JavaScript), no en un entorno de producción.
+  \item La orquestación se implementará mediante herramientas-agente de codificación que accederán a modelos alojados en la nube a través de un enrutador de modelos (por ejemplo, OpenRouter), descritas en la Sección~\ref{sec:metodologia}, lo que permitirá emplear modelos de distintos proveedores sin requerir infraestructura local; en consecuencia, la evaluación se limitará a modelos accesibles en la nube y no contemplará despliegues en infraestructura propia.
+  \item La evaluación se limitará a la confiabilidad y estructura arquitectónica del código generado, por lo que no se considerarán otros aspectos de calidad del software como el rendimiento o la seguridad.
+  \item La comparación se realizará en un entorno controlado de desarrollo sobre lenguajes de programación específicos, no en un entorno de producción.
 \end{itemize}
 
 \subsection{Limitaciones}
 \begin{itemize}
   \item Debido a que la condición multiagente es diferente a la línea base en tres dimensiones: número de agentes, heterogeneidad de modelos y especialización de roles, la interpretación de los resultados puede ser compleja y no permitir conclusiones definitivas sobre cuál de estas dimensiones es la más relevante para la confiabilidad y estructura arquitectónica del código generado.
-  \item Los resultados pueden verse afectados por la variabilidad en el desempeño de los modelos de lenguaje utilizados, que pueden cambiar con el tiempo debido a actualizaciones o cambios en la infraestructura de los proveedores de servicios de IA.
+  \item Los resultados pueden verse afectados por la variabilidad en el desempeño de los modelos de lenguaje utilizados, que pueden cambiar con el tiempo debido a actualizaciones o cambios en la infraestructura de los proveedores de servicios de IA. Para acotar este efecto, los modelos y sus versiones se fijarán durante la experimentación y las comparaciones entre ambos enfoques se realizarán en condiciones equivalentes.
 \end{itemize}
