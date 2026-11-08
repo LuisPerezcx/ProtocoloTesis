@@ -43,6 +43,15 @@ function sh(cmd, opts = {}) {
 const PROTOCOLO_DIR = path.join(__dirname, "..", "protocolo");
 const OUT_DIR = path.join(PROTOCOLO_DIR, "build-diff");
 
+// Fecha local (AAAA-MM-DD) del reloj de la máquina, igual que
+// scripts/tag-review.js, para nombrar el PDF de salida con la fecha en que se
+// generó.
+function fechaLocal() {
+  const d = new Date();
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+
 // Destinatario -> prefijo de etiqueta. Debe coincidir con los prefijos de
 // scripts/tag-review.js. `director` es el default sin argumento.
 const PREFIJOS = {
@@ -336,13 +345,26 @@ function main() {
     process.exit(1);
   }
 
-  const pdfPath = path.join(OUT_DIR, "main-diff.pdf");
-  if (fs.existsSync(pdfPath)) {
-    console.log(`Listo: ${path.relative(process.cwd(), pdfPath)}`);
-  } else {
+  const compiledPdf = path.join(OUT_DIR, "main-diff.pdf");
+  if (!fs.existsSync(compiledPdf)) {
     console.error("No se generó el PDF. Revisa build-diff/main-diff.log.");
     process.exit(1);
   }
+
+  // Un solo PDF con fecha, reemplazando el de la corrida anterior: se borra
+  // cualquier "main-diff-AAAA-MM-DD.pdf" previo y se renombra el recién
+  // compilado (main-diff.pdf) a la fecha de hoy. No se acumulan PDFs por
+  // fecha: el histórico real de qué se envió y cuándo vive en los commits y
+  // etiquetas de git (envio-director-* / envio-seminario-*), así que este
+  // archivo no se versiona (build-diff/ está en .gitignore). Re-correr el
+  // mismo día simplemente vuelve a reemplazar el PDF de esa fecha.
+  fs.readdirSync(OUT_DIR)
+    .filter((f) => /^main-diff-\d{4}-\d{2}-\d{2}\.pdf$/.test(f))
+    .forEach((f) => fs.unlinkSync(path.join(OUT_DIR, f)));
+
+  const datedPdf = path.join(OUT_DIR, `main-diff-${fechaLocal()}.pdf`);
+  fs.renameSync(compiledPdf, datedPdf);
+  console.log(`Listo: ${path.relative(process.cwd(), datedPdf)}`);
 }
 
 main();

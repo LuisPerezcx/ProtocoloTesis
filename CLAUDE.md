@@ -406,7 +406,14 @@ materia se decidió abreviar como "seminario" en el prefijo (David, 2026-10-19).
      `main.tex`) para que las rutas relativas a `referencias/bibliografia.bib`
      sigan resolviendo bien; solo los archivos de compilación (aux/log/pdf)
      van a `build-diff/`.
-  5. Resultado: `protocolo/build-diff/main-diff.pdf`.
+  5. Resultado: `protocolo/build-diff/main-diff-AAAA-MM-DD.pdf` (la fecha es
+     la del reloj de la máquina al generarlo). Es un único PDF que se
+     **reemplaza** en cada corrida: el script borra cualquier
+     `main-diff-*.pdf` previo antes de dejar el nuevo, así que no se acumulan
+     por fecha. La fecha en el nombre es solo para identificar de cuándo es al
+     mandarlo; el histórico real de qué se envió y cuándo vive en las
+     etiquetas de git, y `build-diff/` está en `.gitignore`, así que este PDF
+     no se versiona.
 
 **Por qué `--type=CFONT` y no el estilo por defecto de latexdiff
 (UNDERLINE):** UNDERLINE usa el paquete `ulem` (`\uline`/`\uwave`), cuyo
@@ -564,7 +571,7 @@ sigue viendo bien sobre el texto de una cita.
 3. Seguir trabajando y comiteando como siempre.
 4. En cualquier momento (para revisar el propio avance, o antes de la
    siguiente entrega), correr `npm run diff` para generar
-   `protocolo/build-diff/main-diff.pdf` con solo lo que cambió desde la
+   `protocolo/build-diff/main-diff-AAAA-MM-DD.pdf` con solo lo que cambió desde la
    última etiqueta de la línea que interese: `npm run diff` (director),
    `npm run diff:seminario` (seminario), o desde una referencia específica
    con `npm run diff -- <tag-o-commit>`. Si la etiqueta más reciente de esa
