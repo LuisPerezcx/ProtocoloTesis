@@ -1,27 +1,42 @@
 \section{Metodología}
 \label{sec:metodologia}
 
-% Descripción de cómo se pretende resolver el problema identificado en
-% las secciones anteriores. Tamaño según plantilla institucional:
-% depende del tipo de contribución de la tesis. Se puede incluir un
-% diagrama ilustrativo (arquitectura, base del modelo, estructura de la
-% metodología, uso de la herramienta, o lo que sea el producto de la
-% investigación).
+Para evaluar la hipótesis planteada en este trabajo, se llevará a cabo un estudio comparativo en un entorno controlado. El propósito es contrastar dos enfoques de desarrollo de software asistido por IA: por un lado, un modelo de orquestación multiagente con roles especializados y heterogeneidad completa de modelos, y por otro lado, un agente único de propósito general como línea base.
 
-Descripción de la forma en que se pretende resolver el problema
-identificado en las secciones anteriores.
+\subsection{Sistema experimental y banco de tareas}
 
-% Ejemplo de figura referenciable dinámicamente con \ref{fig:arquitectura}.
-% Coloca tu imagen en protocolo/figuras/ y ajusta el nombre de archivo.
-\begin{figure}[H]
-  \centering
-  % \includegraphics[width=0.8\textwidth]{figuras/arquitectura.png}
-  \fbox{\parbox{0.8\textwidth}{\centering \vspace{2cm}
-    figura ejemplo, sustituir en\\
-    \texttt{protocolo/figuras/arquitectura.png}
-    \vspace{2cm}}}
-  \caption{Arquitectura propuesta de la solución.}
-  \label{fig:arquitectura}
-\end{figure}
+La experimentación se realizará sobre tareas de desarrollo en TypeScript. Para garantizar que la comparación sea justa y que ambos enfoques trabajen con requerimientos bien estructurados, las especificaciones de las tareas se elaborarán a partir de casos de uso y criterios de aceptación. Para este propósito, se utilizará un modelo de lenguaje de apoyo que asistirá en la formulación de los casos de uso y escenarios a partir de especificaciones iniciales, los cuales serán revisados y validados para asegurar que las tareas cuenten con un nivel de complejidad adecuado y equivalente, siguiendo una estrategia similar a la planteada por \textcite{donato2026rolebased}. De esta manera, tanto el sistema multiagente como el agente único reciben exactamente las mismas especificaciones y restricciones de implementación.
 
-Como se observa en la Figura~\ref{fig:arquitectura}, \dots
+En cuanto a la infraestructura de ejecución, la orquestación se implementará mediante herramientas-agente de codificación que accederán a modelos de lenguaje alojados en la nube a través de un enrutador de modelos (como OpenRouter). Este mecanismo permite conectar e intercambiar modelos de distintos proveedores (por ejemplo, Anthropic, OpenAI o Google) mediante una interfaz unificada sin necesidad de desplegar infraestructura local de cómputo. En la condición multiagente, cada rol del Role Specialization Model (arquitecto, analista y especialista) será ocupado por un modelo de una familia o proveedor diferente, coordinados para resolver la tarea de desarrollo. En contraste, en la condición de línea base, un único agente de propósito general ejecutará todas las fases del desarrollo empleando un solo modelo líder de mercado.
+
+\subsection{Variables y su medición}
+
+La variable independiente del estudio es el enfoque de asistencia agéntica, que considera dos alternativas: la orquestación multiagente heterogénea y el uso de un agente único de propósito general. A partir de esta comparación, se evaluarán dos variables dependientes:
+
+\begin{enumerate}
+  \item \textbf{Confiabilidad del código:} entendida, conforme a la norma ISO/IEC 25010, como la capacidad del código para funcionar sin errores. Se evaluará a partir de la tasa de errores de compilación y lógicos presentes en el código generado \parencite{ehsani2026failed}. Para medir esto de manera objetiva y evitar falsos positivos de funcionalidad, cada tarea contará con una suite de pruebas automatizadas con aserciones rigurosas que registrará la proporción de casos de prueba aprobados frente a los fallidos en cada ejecución, tomando como antecedente metodológico el hallazgo de \textcite{liu2023evalplus} de que conjuntos de prueba insuficientes pueden dejar pasar código incorrecto; la suite de este estudio se diseñará para las tareas TypeScript evaluadas.
+  
+  \item \textbf{Estructura arquitectónica del código:} entendida como el grado de organización modular y separación de responsabilidades en capas \parencite{donato2026rolebased}, así como la complejidad cognitiva del código generado \parencite{agarwal2026codingagents}. La complejidad cognitiva se medirá mediante herramientas de análisis estático de código, lo cual proporciona un indicador cuantitativo sobre la dificultad de comprender y mantener la solución generada sin depender de evaluaciones subjetivas.
+\end{enumerate}
+
+Para controlar las variables que podrían afectar los resultados, ambos enfoques se evaluarán utilizando el mismo conjunto de tareas en TypeScript, las mismas especificaciones de casos de uso y las mismas pruebas de validación. También se mantendrán fijas las versiones de los modelos utilizados en la nube durante toda la fase experimental, con el fin de evitar cambios en los resultados debido a actualizaciones realizadas por los proveedores.
+
+\subsection{Procedimiento de la investigación}
+
+El procedimiento se organiza en cuatro fases correspondientes a los objetivos específicos del trabajo:
+
+\begin{enumerate}
+  \item \textbf{Fase 1: Revisión y selección de métricas (O1 y O2):} se revisa la literatura sobre orquestación multiagente y calidad de código generado por IA, y se seleccionan formalmente las métricas e instrumentos de análisis estático y pruebas automatizadas que se emplearán en el estudio.
+  
+  \item \textbf{Fase 2: Diseño del caso de estudio y preparación de tareas (O3):} se definen los módulos en TypeScript a desarrollar, se generan y validan los casos de uso con asistencia de IA, se escriben las suites de pruebas automatizadas y se configuran los prompts y herramientas-agente conectadas al enrutador en la nube.
+  
+  \item \textbf{Fase 3: Ejecución experimental y recolección de datos (O3):} se ejecutan las tareas de forma controlada e independiente con ambos enfoques (multiagente heterogéneo y agente único), registrando de manera sistemática los fallos de compilación, los resultados de las pruebas y las métricas de análisis estático del código resultante.
+  
+  \item \textbf{Fase 4: Evaluación y comparación estadística (O4):} se procesan las mediciones obtenidas y se realiza el análisis comparativo para responder a la hipótesis de investigación.
+\end{enumerate}
+
+\subsection{Plan de análisis de datos}
+
+El análisis de datos tiene como finalidad determinar si existen diferencias estadísticamente significativas entre ambos enfoques en cuanto a confiabilidad y estructura arquitectónica. En primer lugar, se aplicarán pruebas de normalidad (como la prueba de Shapiro-Wilk) sobre las distribuciones de los datos recolectados para cada métrica. 
+
+A partir de los resultados de normalidad, se seleccionará la prueba de contraste de hipótesis correspondiente: si los datos siguen una distribución normal, se utilizará una prueba paramétrica (como la prueba $t$ de Student); en caso contrario, se empleará una prueba no paramétrica (como la prueba de Mann-Whitney $U$). En ambas pruebas se considerará un nivel de significancia de $\alpha = 0.05$. Adicionalmente, se calculará el tamaño del efecto (mediante la $d$ de Cohen o el delta de Cliff, según corresponda) para evaluar la magnitud práctica de las diferencias observadas, y se emplearán diagramas de caja para visualizar la dispersión y las medianas de los resultados en cada enfoque.

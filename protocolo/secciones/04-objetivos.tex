@@ -10,7 +10,7 @@ Evaluar la confiabilidad y la estructura arquitectónica del código producido p
 \subsection{Objetivos específicos}
 \begin{enumerate}[label=O\arabic*.]
   \item Revisar el estado del arte sobre orquestación multiagente, especialización de roles y heterogeneidad de modelos en el desarrollo de software asistido por IA, así como las métricas de confiabilidad y estructura arquitectónica empleadas en la literatura.
-  \item Definir las métricas de confiabilidad (tasa de errores de compilación y lógicos) y de estructura arquitectónica (modularidad y complejidad cognitiva) que permitan comparar un modelo de orquestación multiagente con roles especializados y heterogeneidad completa de modelos frente a un agente único de propósito general.
+  \item Seleccionar, a partir de la revisión del estado del arte, las métricas de confiabilidad (tasa de errores de compilación y lógicos) y de estructura arquitectónica (modularidad y complejidad cognitiva) que permitan comparar un modelo de orquestación multiagente con roles especializados y heterogeneidad completa de modelos frente a un agente único de propósito general.
   \item Plantear y ejecutar un caso de estudio que permita comparar ambos enfoques en tareas de desarrollo de software asistido por IA.
   \item Evaluar y comparar estadísticamente la confiabilidad y la estructura arquitectónica del código producido por ambos enfoques en el caso de estudio.
 \end{enumerate}
@@ -18,10 +18,25 @@ Evaluar la confiabilidad y la estructura arquitectónica del código producido p
 \subsection{Aportaciones esperadas}
 
 \begin{description}
-  \item[Teóricas y de investigación de base] Resultados previstos de
-    claro contenido teórico o que marquen las bases de desarrollos
-    posteriores.
-  \item[Metodológicas] Resultados de carácter metodológico o que propongan estrategias y técnicas nuevas para el área.
-  \item[Prácticas] Desarrollos prácticos previstos que acompañarán a los
-    resultados principales de la tesis.
+  \item[Teóricas y de investigación de base] Evidencia empírica sobre el
+    efecto que la combinación de roles especializados con heterogeneidad
+    completa de modelos tiene en la confiabilidad y la estructura del
+    código generado, en comparación con un agente único de propósito
+    general. Los resultados permitirán determinar si modelos de
+    distintas familias o proveedores se complementan al asumir roles
+    diferenciados y si esa complementariedad se traduce en menos errores
+    y mejor organización del código en tareas de desarrollo de software.
+
+  \item[Metodológicas] Un procedimiento para evaluar y comparar de
+    forma controlada un sistema multiagente con heterogeneidad completa
+    de modelos frente a un agente único de propósito general, que
+    incluye la selección y el uso conjunto de métricas de confiabilidad
+    (tasa de errores de compilación y lógicos) y de estructura
+    arquitectónica (modularidad y complejidad cognitiva).
+
+  \item[Prácticas] Una configuración funcional de herramientas-agente
+    coordinadas bajo un modelo de especialización de roles, utilizando
+    modelos de distintos proveedores en la nube a través de un enrutador
+    de modelos, junto con el conjunto de tareas de desarrollo y los
+    casos de prueba utilizados en la evaluación.
 \end{description}

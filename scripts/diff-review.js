@@ -342,6 +342,10 @@ function main() {
     run(`pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build-diff main-diff.tex`);
   } catch (e) {
     console.error("Falló la compilación. Revisa protocolo/build-diff/main-diff.log para más detalle.");
+      console.error("Error ejecutando latexdiff-vc:");
+  console.error(e.message);
+  console.error("STDOUT:", e.stdout?.toString());
+  console.error("STDERR:", e.stderr?.toString());
     process.exit(1);
   }
 
