@@ -328,3 +328,138 @@
   year         = {2023},
   url          = {https://proceedings.neurips.cc/paper_files/paper/2023/hash/43e9d647ccd3e4b7b5baab53f0368686-Abstract-Conference.html},
 }
+
+% ============================================================
+% Agregadas 2026-11-16: marco metodológico de la sección Metodología
+% (Design Science Research). Se citan en "Enfoque y diseño de la
+% investigación" (hevner2004design = el marco/guidelines + métodos de
+% evaluación; peffers2007design = el proceso de 6 actividades). Ambas de
+% revista arbitrada; DOI verificado en la venue oficial el mismo día:
+% Hevner et al. en MIS Quarterly 28(1), Peffers et al. en Journal of
+% Management Information Systems 24(3).
+% ============================================================
+@article{hevner2004design,
+  author       = {Hevner, Alan R. and March, Salvatore T. and Park, Jinsoo and Ram, Sudha},
+  title        = {Design Science in Information Systems Research},
+  journaltitle = {MIS Quarterly},
+  volume       = {28},
+  number       = {1},
+  pages        = {75--105},
+  year         = {2004},
+  doi          = {10.2307/25148625},
+  url          = {https://doi.org/10.2307/25148625},
+  urldate      = {2026-11-16},
+}
+
+@article{peffers2007design,
+  author       = {Peffers, Ken and Tuunanen, Tuure and Rothenberger, Marcus A. and Chatterjee, Samir},
+  title        = {A Design Science Research Methodology for Information Systems Research},
+  journaltitle = {Journal of Management Information Systems},
+  volume       = {24},
+  number       = {3},
+  pages        = {45--77},
+  year         = {2007},
+  doi          = {10.2753/MIS0742-1222240302},
+  url          = {https://doi.org/10.2753/MIS0742-1222240302},
+  urldate      = {2026-11-16},
+}
+
+% ============================================================
+% Agregada 2026-11-16: fuente de la métrica de modularidad/estructura
+% (comentario #10 del director -- hacerla MEDIBLE, no solo cualitativa).
+% Define métricas de calidad de modularización de software orientado a
+% objetos basadas en acoplamiento entre módulos, dependencias (incl.
+% cíclicas) y capas. Venue arbitrada: IEEE Transactions on Software
+% Engineering 34(5); DOI verificado (DBLP + registro IEEE) el mismo día.
+% ============================================================
+@article{sarkar2008modularization,
+  author       = {Sarkar, Santonu and Kak, Avinash C. and Rama, Girish Maskeri},
+  title        = {Metrics for Measuring the Quality of Modularization of Large-Scale Object-Oriented Software},
+  journaltitle = {IEEE Transactions on Software Engineering},
+  volume       = {34},
+  number       = {5},
+  pages        = {700--720},
+  year         = {2008},
+  doi          = {10.1109/TSE.2008.43},
+  url          = {https://doi.org/10.1109/TSE.2008.43},
+  urldate      = {2026-11-16},
+}
+
+% ============================================================
+% Agregadas 2026-11-16: pruebas estadísticas del "Plan de análisis de
+% datos" (Metodología). Clásicas y arbitradas; venue/DOI verificados por la
+% API de Crossref (api.crossref.org) el mismo día, salvo Cohen (libro:
+% ISBN y editorial verificados en catálogos de biblioteca).
+%   shapiro1965analysis     = prueba de normalidad (Shapiro-Wilk).
+%   student1908probable     = prueba t de Student (caso normal; "Student" es
+%                             el seudónimo de W. S. Gosset, se cita así por
+%                             convención). Biometrika asigna 2 DOI al artículo
+%                             (Oxford y JSTOR); el que resuelve en Crossref es
+%                             el de JSTOR, por eso se usa ese.
+%   wilcoxon1945individual  = prueba de Wilcoxon de rangos con signo (caso no
+%                             normal, diseño pareado). OJO: NO confundir con el
+%                             artículo de 1947 "Probability Tables..." (otro DOI).
+%   cohen1988statistical    = tamaño del efecto d de Cohen (ruta paramétrica).
+%   cliff1993dominance      = tamaño del efecto delta de Cliff (ruta no param.).
+% ============================================================
+@article{shapiro1965analysis,
+  author       = {Shapiro, Samuel S. and Wilk, Martin B.},
+  title        = {An Analysis of Variance Test for Normality (Complete Samples)},
+  journaltitle = {Biometrika},
+  volume       = {52},
+  number       = {3-4},
+  pages        = {591--611},
+  year         = {1965},
+  doi          = {10.1093/biomet/52.3-4.591},
+  url          = {https://doi.org/10.1093/biomet/52.3-4.591},
+  urldate      = {2026-11-16},
+}
+
+@article{student1908probable,
+  author       = {{Student}},
+  title        = {The Probable Error of a Mean},
+  journaltitle = {Biometrika},
+  volume       = {6},
+  number       = {1},
+  pages        = {1--25},
+  year         = {1908},
+  doi          = {10.2307/2331554},
+  url          = {https://doi.org/10.2307/2331554},
+  urldate      = {2026-11-16},
+}
+
+@article{wilcoxon1945individual,
+  author       = {Wilcoxon, Frank},
+  title        = {Individual Comparisons by Ranking Methods},
+  journaltitle = {Biometrics Bulletin},
+  volume       = {1},
+  number       = {6},
+  pages        = {80--83},
+  year         = {1945},
+  doi          = {10.2307/3001968},
+  url          = {https://doi.org/10.2307/3001968},
+  urldate      = {2026-11-16},
+}
+
+@book{cohen1988statistical,
+  author       = {Cohen, Jacob},
+  title        = {Statistical Power Analysis for the Behavioral Sciences},
+  edition      = {2},
+  publisher    = {Lawrence Erlbaum Associates},
+  location     = {Hillsdale, NJ},
+  year         = {1988},
+  isbn         = {978-0-8058-0283-2},
+}
+
+@article{cliff1993dominance,
+  author       = {Cliff, Norman},
+  title        = {Dominance Statistics: Ordinal Analyses to Answer Ordinal Questions},
+  journaltitle = {Psychological Bulletin},
+  volume       = {114},
+  number       = {3},
+  pages        = {494--509},
+  year         = {1993},
+  doi          = {10.1037/0033-2909.114.3.494},
+  url          = {https://doi.org/10.1037/0033-2909.114.3.494},
+  urldate      = {2026-11-16},
+}

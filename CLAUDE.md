@@ -136,6 +136,32 @@ casi literal sin darse cuenta es mayor ahí que citando en inglés
 directamente. No esperar a que David lo pida en cada ocasión — revisarlo
 por defecto cada vez que comparta redacción del protocolo.
 
+## Revisión de redacción: eliminar frases genéricas de relleno
+
+Instrucción explícita de David (2026-11-16), válida para cualquier sesión
+futura y aplicable por defecto al revisar (o escribir andamiaje para)
+cualquier sección del protocolo o la tesis: marcar y eliminar —o volver
+específicas— las **frases genéricas que podrían ir en cualquier tesis** y
+no aportan información propia de este trabajo. Son el relleno que hace que
+la redacción se sienta "rimbombante" o impersonal sin decir nada.
+
+Señal típica a cazar: oraciones que **cierran con una cláusula de relleno**
+del tipo "asegurando que…", "garantizando que…", "lo que permite…",
+"contribuyendo al conocimiento en el campo de…", "para una mejor
+comprensión de…", "de gran importancia para la comunidad académica". Casi
+siempre se pueden **borrar sin perder información**, o reemplazar por un
+dato concreto y verificable del estudio (una métrica, una decisión de
+diseño, un número de tareas, etc.).
+
+Al revisar, señalar la oración/cláusula específica (con número de línea si
+es posible), explicar por qué es genérica (podría aparecer igual en
+cualquier otra tesis), y sugerir: (a) eliminarla, o (b) sustituirla por
+algo específico de esta investigación. No esperar a que David lo pida en
+cada ocasión — revisarlo por defecto junto con el chequeo de parafraseo
+cercano. Regla práctica de prueba: si una oración sigue siendo verdadera
+al pegarla en una tesis de un tema totalmente distinto, sobra o hay que
+concretarla.
+
 ## Convención de comillas
 
 David prefiere comillas rectas `"..."` en todo el protocolo, no comillas
