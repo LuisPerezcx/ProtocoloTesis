@@ -5,6 +5,24 @@ sesiones en la nube que no comparten memoria entre sí) recupere el
 contexto completo del proyecto sin que David tenga que repetirlo. Léelo
 al empezar a trabajar en esta carpeta.
 
+## Antes de empezar: estado y método viven en el vault
+
+El **estado actual del protocolo** (qué está hecho, decisiones y pendientes)
+y el **método de trabajo de redacción** NO se duplican aquí: viven en el vault
+de Obsidian (`~/dev/Notas/maestria/tesis/`), accesible con la skill
+`notas-obsidian` / `consultar-vault`. Antes de trabajar el protocolo, leer ahí:
+
+- `estado-del-protocolo.md` — **empezar por aquí**: dónde va el protocolo.
+- `metodo-de-trabajo-redaccion.md` — cómo se redacta: andamiaje + frases de
+  inicio; **David redacta la prosa, el agente coachea/revisa** (no escribe el
+  texto final por él), aplica solo lo mecánico (erratas, `.bib`, `\label`) y
+  marca parafraseo cercano y frases de relleno.
+- `_indice.md` de la carpeta `tesis/` — índice de todas las notas (dominio POS,
+  terminología, variables, puntos a consultar con el director, etc.).
+
+Si esta sesión **no tiene acceso al vault** (p. ej. una sesión en la nube sin la
+skill), pedírselo a David antes de avanzar la redacción.
+
 ## Director de tesis y punto de partida del protocolo
 
 El director de tesis de David es el **Dr. Carlos Alberto Fernández-y-Fernández**

@@ -5,34 +5,40 @@
 % claro qué se aporta a nivel teórico, metodológico y práctico.
 
 \subsection{Objetivo general}
-Evaluar la confiabilidad y la estructura arquitectónica del código producido por un modelo de orquestación multiagente con roles especializados y heterogeneidad completa de modelos frente a un agente único de propósito general en tareas de desarrollo de software asistido por IA.
+Evaluar la corrección funcional y la estructura arquitectónica del código producido por un modelo de orquestación multiagente con roles especializados y heterogeneidad completa de modelos, basado en el Role Specialization Model (RSM), frente a un agente único de propósito general, en el desarrollo de funcionalidades de backend acotadas a casos de uso individuales.
 
 \subsection{Objetivos específicos}
 \begin{enumerate}[label=O\arabic*.]
-  \item Revisar el estado del arte sobre orquestación multiagente, especialización de roles y heterogeneidad de modelos en el desarrollo de software asistido por IA, así como las métricas de confiabilidad y estructura arquitectónica empleadas en la literatura.
-  \item Seleccionar, a partir de la revisión del estado del arte, las métricas de confiabilidad (tasa de errores de compilación y lógicos) y de estructura arquitectónica (modularidad y complejidad cognitiva) que permitan comparar un modelo de orquestación multiagente con roles especializados y heterogeneidad completa de modelos frente a un agente único de propósito general.
-  \item Plantear y ejecutar un caso de estudio que permita comparar ambos enfoques en tareas de desarrollo de software asistido por IA.
-  \item Evaluar y comparar estadísticamente la confiabilidad y la estructura arquitectónica del código producido por ambos enfoques en el caso de estudio.
+  \item Revisar el estado del arte sobre orquestación multiagente, especialización de roles y heterogeneidad de modelos en el desarrollo de software asistido por IA, y seleccionar las métricas de corrección funcional (tasa de errores de compilación y lógicos) y de estructura arquitectónica (modularidad y complejidad cognitiva) empleadas en la literatura.
+  \item Diseñar e implementar el artefacto de la investigación (una herramienta de orquestación multiagente basada en el RSM, con heterogeneidad completa de modelos) y configurar la línea base de un agente único de propósito general.
+  \item Ejecutar una evaluación experimental controlada que compare ambos enfoques en el desarrollo de funcionalidades de backend acotadas a casos de uso individuales.
+  \item Evaluar y comparar estadísticamente la corrección funcional y la estructura arquitectónica del código producido por ambos enfoques.
 \end{enumerate}
 
 \subsection{Aportaciones esperadas}
 
+La contribución principal de este trabajo es el artefacto desarrollado; las aportaciones metodológicas y teóricas se derivan de su construcción y evaluación.
+
 \begin{description}
-  \item[Teóricas y de investigación de base] Evidencia empírica sobre el
-    efecto que la combinación de roles especializados con heterogeneidad
-    completa de modelos tiene en la confiabilidad y la estructura del
-    código generado, en comparación con un agente único de propósito
-    general. Los resultados permitirán determinar si modelos de
-    distintas familias o proveedores se complementan al asumir roles
-    diferenciados y si esa complementariedad se traduce en menos errores
-    y mejor organización del código en tareas de desarrollo de software.
+  \item[Prácticas] El artefacto central de esta investigación: una
+    herramienta de orquestación multiagente basada en el RSM, con
+    heterogeneidad completa de modelos, en la que cada rol es ocupado por
+    un modelo de una familia o proveedor diferente, accedidos a través de
+    un enrutador de modelos en la nube. Junto con el artefacto se aportan
+    el banco de tareas de desarrollo y los casos de prueba empleados en la
+    evaluación.
 
   \item[Metodológicas] Un procedimiento para evaluar y comparar de
     forma controlada un sistema multiagente con heterogeneidad completa
     de modelos frente a un agente único de propósito general, que
-    incluye la selección y el uso conjunto de métricas de confiabilidad
-    (tasa de errores de compilación y lógicos) y de estructura
+    incluye la selección y el uso conjunto de métricas de corrección
+    funcional (tasa de errores de compilación y lógicos) y de estructura
     arquitectónica (modularidad y complejidad cognitiva).
 
-  \item[Prácticas] El prototipo funcional desarrollado como artefacto de esta investigación: una herramienta de orquestación multiagente que implementa el RSM con heterogeneidad completa de modelos, en la que cada rol es ocupado por un modelo de una familia o proveedor diferente, accedidos a través de un enrutador de modelos en la nube. Junto con el prototipo se aportan el banco de tareas de desarrollo y los casos de prueba empleados en la evaluación.
+  \item[Teóricas y de investigación de base] Evidencia empírica sobre el
+    efecto que la combinación de roles especializados con heterogeneidad
+    completa de modelos tiene en la corrección funcional y la estructura
+    del código generado, frente a un agente único de propósito general.
+    Los resultados permitirán determinar si modelos de distintas familias
+    o proveedores se complementan al asumir roles diferenciados.
 \end{description}

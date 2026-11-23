@@ -31,6 +31,11 @@
 % \onehalfspacing          % descomenta si necesitas interlineado 1.5
 \usepackage{xcolor}
 \usepackage{microtype}     % mejora justificación y espaciado tipográfico automáticamente
+\usepackage{colortbl}      % colorear celdas de tablas (cronograma/Gantt)
+\usepackage{pdflscape}     % páginas apaisadas (cronograma mensual horizontal)
+% Colores del cronograma (sección Plan de trabajo)
+\definecolor{ganttdone}{RGB}{56,142,60}    % verde: actividad terminada
+\definecolor{ganttplan}{RGB}{144,202,249}  % azul claro: actividad por terminar
 
 % ---------- Bibliografía: APA 7 vía biblatex + biber ----------
 \usepackage[
@@ -42,6 +47,13 @@
 ]{biblatex}
 \DeclareLanguageMapping{spanish}{spanish-apa}
 \addbibresource{referencias/bibliografia.bib}
+
+% babel-spanish rotula las tablas como "Cuadro" y el índice como "Índice de
+% cuadros"; David prefiere "Tabla" / "Índice de tablas".
+\addto\captionsspanish{%
+  \renewcommand{\tablename}{Tabla}%
+  \renewcommand{\listtablename}{Índice de tablas}%
+}
 
 % ---------- Enlaces clicables (cargar después de biblatex) ----------
 \usepackage[
@@ -70,7 +82,7 @@
 % ÍNDICES DINÁMICOS
 % ============================================================
 \tableofcontents
-\listoffigures
+%\listoffigures
 \listoftables
 
 \newpage
@@ -82,8 +94,8 @@
 \input{secciones/03-hipotesis}
 \input{secciones/04-objetivos}
 \input{secciones/05-metodologia}
-%\input{secciones/06-estructura-tesis}
-%\input{secciones/07-plan-trabajo}
+\input{secciones/06-estructura-tesis}
+\input{secciones/07-plan-trabajo}
 \input{secciones/08-bibliografia}
 
 % ============================================================

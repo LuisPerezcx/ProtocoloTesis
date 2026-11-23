@@ -1,26 +1,101 @@
 \section{Plan de trabajo}
 \label{sec:plan-trabajo}
 
-% ~200 palabras. Etapas del trabajo con cotas temporales (aunque sean
-% estimativas). Se recomienda tabla y/o lista de actividades genéricas
-% y específicas. No incluir gráficas de Gantt de MS Project si no caben
-% en la página.
+% Párrafo introductorio (~100-200 palabras). DRAFT para que lo adaptes a tu
+% voz; referencia la Tabla del cronograma y explica el orden de etapas.
+% Borra este comentario al terminar de redactarlo.
+El desarrollo del trabajo se organiza en etapas alineadas con los objetivos específicos (O1 a O4) y las fases de la metodología descritas en la sección~\nameref{sec:metodologia}. La Tabla~\ref{tab:cronograma} presenta el cronograma general: tras la elaboración del protocolo, el trabajo avanza con la revisión del estado del arte y la selección de métricas (O1), continúa con el diseño e implementación del artefacto y la configuración de la línea base (O2), prosigue con la evaluación experimental (el piloto y el experimento confirmatorio) y el análisis estadístico de los resultados (O3 y O4), y cierra con la redacción y la entrega final de la tesis. Las actividades concluidas se muestran en verde y las pendientes en azul.
 
+% ----------------------------------------------------------------------
+% Cronograma (Gantt mensual, Ago 2026 -- Nov 2028 = 28 meses).
+% Requiere en main.tex: colortbl, pdflscape y los colores ganttdone/ganttplan.
+% Rejilla: cada mes es una celda (línea vertical) y cada fila lleva \hline.
+% Las barras se pintan con \cellcolor en las celdas de cada actividad:
+%   \cellcolor{ganttdone}=terminado  \cellcolor{ganttplan}=por terminar  (vacío=nada)
+% Para mover una actividad, cambia en su fila qué celdas llevan \cellcolor
+% (hay 28 celdas por fila, una por mes; el comentario al final dice su rango).
+% Tamaño: \resizebox{<ancho>}{<alto>}; ! = automático. \lscw = ancho total apaisado.
+% ----------------------------------------------------------------------
+\newlength{\gwid}\setlength{\gwid}{0.5cm}
+% Ancho total de la hoja apaisada = alto de texto vertical (geometry no lo
+% ensancha solo dentro de landscape, así que lo capturamos aquí, en vertical).
+\newlength{\lscw}\setlength{\lscw}{\textheight}
+\newcommand{\rot}[1]{\rotatebox[origin=c]{90}{\tiny #1}}
+
+\begin{landscape}
+\setlength{\textwidth}{\lscw}\setlength{\linewidth}{\lscw}% usar todo el ancho apaisado
 \begin{table}[H]
   \centering
-  \caption{Cronograma general de actividades(ejemplos).}
+  \caption{Cronograma general de actividades.}
   \label{tab:cronograma}
-  \begin{tabular}{@{}p{0.45\textwidth}p{0.35\textwidth}@{}}
-    \toprule
-    \textbf{Actividad} & \textbf{Periodo estimado} \\
-    \midrule
-    Revisión del estado del arte       & Mes 1 -- Mes 2  \\
-    Definición de la propuesta técnica & Mes 2 -- Mes 3  \\
-    Desarrollo / experimentación       & Mes 4 -- Mes 8  \\
-    Evaluación de resultados           & Mes 9 -- Mes 10 \\
-    Redacción de la tesis              & Mes 10 -- Mes 12 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+  \resizebox{\textwidth}{!}{%
+  \scriptsize
+  \setlength{\tabcolsep}{0pt}
+  \renewcommand{\arraystretch}{1.1}
+  \arrayrulecolor{black!40}\setlength{\arrayrulewidth}{0.3pt}
+  \begin{tabular}{|p{8cm}|*{28}{>{\centering\arraybackslash}p{\gwid}|}}
+    \cline{2-29}
+    \multicolumn{1}{c|}{} & \multicolumn{5}{c|}{\scriptsize 2026} & \multicolumn{12}{c|}{\scriptsize 2027} & \multicolumn{11}{c|}{\scriptsize 2028}\\
+    \hline
+    \textbf{Actividad} & \rot{ Ago } & \rot{ Sep } & \rot{ Oct } & \rot{ Nov } & \rot{ Dic } & \rot{ Ene } & \rot{ Feb } & \rot{ Mar } & \rot{ Abr } & \rot{ May } & \rot{ Jun } & \rot{ Jul } & \rot{ Ago } & \rot{ Sep } & \rot{ Oct } & \rot{ Nov } & \rot{ Dic } & \rot{ Ene } & \rot{ Feb } & \rot{ Mar } & \rot{ Abr } & \rot{ May } & \rot{ Jun } & \rot{ Jul } & \rot{ Ago } & \rot{ Sep } & \rot{ Oct } & \rot{ Nov }\\
+    \hline
+    \textbf{Protocolo de tesis} & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 1-6
+    \hline
+    \hspace{1ex}Investigación de la literatura del problema & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttdone} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 1-3
+    \hline
+    \hspace{1ex}Definición del problema & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttdone} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 1-3
+    \hline
+    \hspace{1ex}Búsqueda del trabajo relacionado &  &  & \cellcolor{ganttdone} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 3-3
+    \hline
+    \hspace{1ex}Definición de objetivos e hipótesis &  &  & \cellcolor{ganttdone} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 3-3
+    \hline
+    \hspace{1ex}Delimitaciones y limitaciones &  &  &  & \cellcolor{ganttdone} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 4-4
+    \hline
+    \hspace{1ex}Redacción de la metodología &  &  &  & \cellcolor{ganttdone} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 4-5
+    \hline
+    \hspace{1ex}Presentación del protocolo &  &  &  &  &  & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 6-6
+    \hline
+    \textbf{Cap. 1. Introducción} &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 6-7
+    \hline
+    \hspace{1ex}Integración del protocolo como Capítulo 1 &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 6-7
+    \hline
+    \textbf{Cap. 2. Estado del arte (O1)} &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 6-9
+    \hline
+    \hspace{1ex}Orquestación multiagente, RSM, especialización y heterogeneidad &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 6-8
+    \hline
+    \hspace{1ex}Métricas de corrección funcional y estructura (ISO/IEC 25010) &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 7-9
+    \hline
+    \textbf{Cap. 3. Diseño e implementación del artefacto (O2)} &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  & \\ % meses 8-17
+    \hline
+    \hspace{1ex}Requisitos y arquitectura del orquestador (RSM) &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 8-10
+    \hline
+    \hspace{1ex}Implementación y heterogeneidad vía enrutador &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 10-13
+    \hline
+    \hspace{1ex}Configuración de la línea base (agente único) &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 13-14
+    \hline
+    \hspace{1ex}Banco de tareas (backend en TypeScript) y suites de prueba &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  & \\ % meses 14-17
+    \hline
+    \textbf{Cap. 4. Evaluación experimental y resultados (O3 y O4)} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  & \\ % meses 18-25
+    \hline
+    \hspace{1ex}Piloto: validación del artefacto y calibración de K &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  & \\ % meses 18-19
+    \hline
+    \hspace{1ex}Experimento confirmatorio: ejecución &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  & \\ % meses 20-22
+    \hline
+    \hspace{1ex}Análisis estadístico por métrica &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  & \\ % meses 22-24
+    \hline
+    \hspace{1ex}Discusión de resultados y amenazas a la validez &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  & \\ % meses 24-25
+    \hline
+    \textbf{Cap. 5. Conclusiones} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan}\\ % meses 25-28
+    \hline
+    \hspace{1ex}Contrastación de hipótesis y conclusiones &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  & \\ % meses 25-26
+    \hline
+    \hspace{1ex}Revisión de tesis, anexos y entrega final &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan}\\ % meses 27-28
+    \hline
+  \end{tabular}}
 
-Como se resume en la Tabla~\ref{tab:cronograma}, \dots
+  \vspace{6pt}
+  {\footnotesize \textbf{Simbología:}\quad
+   \colorbox{ganttdone}{\phantom{XX}}~Terminado \qquad
+   \colorbox{ganttplan}{\phantom{XX}}~Por terminar}
+\end{table}
+\end{landscape}
