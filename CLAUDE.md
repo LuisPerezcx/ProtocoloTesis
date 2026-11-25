@@ -13,10 +13,13 @@ de Obsidian (`~/dev/Notas/maestria/tesis/`), accesible con la skill
 `notas-obsidian` / `consultar-vault`. Antes de trabajar el protocolo, leer ahí:
 
 - `estado-del-protocolo.md` — **empezar por aquí**: dónde va el protocolo.
-- `metodo-de-trabajo-redaccion.md` — cómo se redacta: andamiaje + frases de
-  inicio; **David redacta la prosa, el agente coachea/revisa** (no escribe el
-  texto final por él), aplica solo lo mecánico (erratas, `.bib`, `\label`) y
-  marca parafraseo cercano y frases de relleno.
+- `metodo-de-trabajo-redaccion.md` — cómo se redacta. **Protocolo ya con forma
+  (desde 2026-11-25):** para cada corrección puntual el agente dice **cómo está
+  el texto y propone 1-3 redacciones concretas**; David elige/ajusta o manda su
+  idea y el agente **pule la redacción final**. (La regla vieja de "solo
+  andamiaje / el agente no redacta" era de cuando el protocolo apenas tomaba
+  forma; ya no aplica.) Sigue: revisar parafraseo cercano y frases de relleno,
+  estilo impersonal, comillas rectas, y lo mecánico (`.bib`, `\label`).
 - `_indice.md` de la carpeta `tesis/` — índice de todas las notas (dominio POS,
   terminología, variables, puntos a consultar con el director, etc.).
 
@@ -306,11 +309,12 @@ esta nota). Estructura vigente:
 (`\section*`), fuera de las 8 secciones de la plantilla — es un
 requisito de entrega, no parte del contenido del tema de investigación.
 
-**Diferencias deliberadas frente a la plantilla** (decisiones de David,
-2026-08-31): se mantiene un `Abstract`/`Keywords` en inglés en
-`portada.tex` junto con el `Resumen`/`Palabras clave` en español, aunque
-la plantilla solo pide estos últimos. Se eliminó por completo la sección
-"Publicaciones generadas" que existía antes (no está en la plantilla).
+**Diferencias deliberadas frente a la plantilla**: se eliminó por
+completo la sección "Publicaciones generadas" que existía antes (no está
+en la plantilla). El `Abstract`/`Keywords` en inglés que se había
+mantenido (decisión de David, 2026-08-31) se **quitó el 2026-11-25** a
+pedido de David: `portada.tex` queda solo con `Resumen`/`Palabras clave`
+en español, como pide la plantilla.
 
 Cada sección es un archivo independiente en `protocolo/secciones/`
 (numerados según el orden de arriba: `01-introduccion.tex`,

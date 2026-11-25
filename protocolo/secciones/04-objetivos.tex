@@ -1,28 +1,25 @@
 \section{Objetivos de la tesis}
 \label{sec:objetivos}
 
-% ~300 palabras. Objetivo general + subobjetivos específicos. Debe quedar
-% claro qué se aporta a nivel teórico, metodológico y práctico.
-
 \subsection{Objetivo general}
 Evaluar la corrección funcional y la estructura arquitectónica del código producido por un modelo de orquestación multiagente con roles especializados y heterogeneidad completa de modelos, basado en el Role Specialization Model (RSM), frente a un agente único de propósito general, en el desarrollo de funcionalidades de backend acotadas a casos de uso individuales.
 
 \subsection{Objetivos específicos}
 \begin{enumerate}[label=O\arabic*.]
   \item Revisar el estado del arte sobre orquestación multiagente, especialización de roles y heterogeneidad de modelos en el desarrollo de software asistido por IA, y seleccionar las métricas de corrección funcional (tasa de errores de compilación y lógicos) y de estructura arquitectónica (modularidad y complejidad cognitiva) empleadas en la literatura.
-  \item Diseñar e implementar el artefacto de la investigación (una herramienta de orquestación multiagente basada en el RSM, con heterogeneidad completa de modelos) y configurar la línea base de un agente único de propósito general.
+  \item Diseñar el artefacto de la investigación (el modelo de orquestación multiagente basado en el RSM, con heterogeneidad completa de modelos) e instrumentar su ejecución, y configurar la línea base de un agente único de propósito general.
   \item Ejecutar una evaluación experimental controlada que compare ambos enfoques en el desarrollo de funcionalidades de backend acotadas a casos de uso individuales.
   \item Evaluar y comparar estadísticamente la corrección funcional y la estructura arquitectónica del código producido por ambos enfoques.
 \end{enumerate}
 
 \subsection{Aportaciones esperadas}
 
-La contribución principal de este trabajo es el artefacto desarrollado; las aportaciones metodológicas y teóricas se derivan de su construcción y evaluación.
+La contribución principal de este trabajo es el artefacto, es decir, el modelo de orquestación; las aportaciones metodológicas y teóricas se derivan de su diseño y evaluación.
 
 \begin{description}
-  \item[Prácticas] El artefacto central de esta investigación: una
-    herramienta de orquestación multiagente basada en el RSM, con
-    heterogeneidad completa de modelos, en la que cada rol es ocupado por
+  \item[Prácticas] El artefacto central de esta investigación: el modelo
+    de orquestación multiagente basado en el RSM, con
+    heterogeneidad completa de modelos, en el que cada rol es ocupado por
     un modelo de una familia o proveedor diferente, accedidos a través de
     un enrutador de modelos en la nube. Junto con el artefacto se aportan
     el banco de tareas de desarrollo y los casos de prueba empleados en la

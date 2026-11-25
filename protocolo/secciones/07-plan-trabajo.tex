@@ -1,10 +1,7 @@
 \section{Plan de trabajo}
 \label{sec:plan-trabajo}
 
-% Párrafo introductorio (~100-200 palabras). DRAFT para que lo adaptes a tu
-% voz; referencia la Tabla del cronograma y explica el orden de etapas.
-% Borra este comentario al terminar de redactarlo.
-El desarrollo del trabajo se organiza en etapas alineadas con los objetivos específicos (O1 a O4) y las fases de la metodología descritas en la sección~\nameref{sec:metodologia}. La Tabla~\ref{tab:cronograma} presenta el cronograma general: tras la elaboración del protocolo, el trabajo avanza con la revisión del estado del arte y la selección de métricas (O1), continúa con el diseño e implementación del artefacto y la configuración de la línea base (O2), prosigue con la evaluación experimental (el piloto y el experimento confirmatorio) y el análisis estadístico de los resultados (O3 y O4), y cierra con la redacción y la entrega final de la tesis. Las actividades concluidas se muestran en verde y las pendientes en azul.
+El desarrollo del trabajo se organiza en etapas alineadas con los objetivos específicos (O1 a O4) y las fases de la metodología descritas en la sección\nobreakspace\nameref{sec:metodologia}. La Tabla\nobreakspace\ref{tab:cronograma} presenta el cronograma general: tras la elaboración del protocolo, el trabajo avanza con la revisión del estado del arte y la selección de métricas (O1), continúa con el diseño e implementación del artefacto, la configuración de la línea base, la construcción del banco de tareas y un piloto de validación (O2), prosigue con el experimento confirmatorio y el análisis estadístico de los resultados (O3 y O4), y cierra con la redacción y la entrega final de la tesis. Las actividades concluidas se muestran en verde y las pendientes en azul.
 
 % ----------------------------------------------------------------------
 % Cronograma (Gantt mensual, Ago 2026 -- Nov 2028 = 28 meses).
@@ -33,63 +30,63 @@ El desarrollo del trabajo se organiza en etapas alineadas con los objetivos espe
   \setlength{\tabcolsep}{0pt}
   \renewcommand{\arraystretch}{1.1}
   \arrayrulecolor{black!40}\setlength{\arrayrulewidth}{0.3pt}
-  \begin{tabular}{|p{8cm}|*{28}{>{\centering\arraybackslash}p{\gwid}|}}
-    \cline{2-29}
-    \multicolumn{1}{c|}{} & \multicolumn{5}{c|}{\scriptsize 2026} & \multicolumn{12}{c|}{\scriptsize 2027} & \multicolumn{11}{c|}{\scriptsize 2028}\\
+  \begin{tabular}{|p{8cm}|*{26}{>{\centering\arraybackslash}p{\gwid}|}}
+    \cline{2-27}
+    \multicolumn{1}{c|}{} & \multicolumn{5}{c|}{\scriptsize 2026} & \multicolumn{12}{c|}{\scriptsize 2027} & \multicolumn{9}{c|}{\scriptsize 2028}\\
     \hline
-    \textbf{Actividad} & \rot{ Ago } & \rot{ Sep } & \rot{ Oct } & \rot{ Nov } & \rot{ Dic } & \rot{ Ene } & \rot{ Feb } & \rot{ Mar } & \rot{ Abr } & \rot{ May } & \rot{ Jun } & \rot{ Jul } & \rot{ Ago } & \rot{ Sep } & \rot{ Oct } & \rot{ Nov } & \rot{ Dic } & \rot{ Ene } & \rot{ Feb } & \rot{ Mar } & \rot{ Abr } & \rot{ May } & \rot{ Jun } & \rot{ Jul } & \rot{ Ago } & \rot{ Sep } & \rot{ Oct } & \rot{ Nov }\\
+    \textbf{Actividad} & \rot{ Ago } & \rot{ Sep } & \rot{ Oct } & \rot{ Nov } & \rot{ Dic } & \rot{ Ene } & \rot{ Feb } & \rot{ Mar } & \rot{ Abr } & \rot{ May } & \rot{ Jun } & \rot{ Jul } & \rot{ Ago } & \rot{ Sep } & \rot{ Oct } & \rot{ Nov } & \rot{ Dic } & \rot{ Ene } & \rot{ Feb } & \rot{ Mar } & \rot{ Abr } & \rot{ May } & \rot{ Jun } & \rot{ Jul } & \rot{ Ago } & \rot{ Sep }\\
     \hline
-    \textbf{Protocolo de tesis} & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 1-6
+    \textbf{Protocolo de tesis} & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 1-6
     \hline
-    \hspace{1ex}Investigación de la literatura del problema & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttdone} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 1-3
+    \hspace{1ex}Investigación de la literatura del problema & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttdone} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 1-3
     \hline
-    \hspace{1ex}Definición del problema & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttdone} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 1-3
+    \hspace{1ex}Definición del problema & \cellcolor{ganttdone} & \cellcolor{ganttdone} & \cellcolor{ganttdone} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 1-3
     \hline
-    \hspace{1ex}Búsqueda del trabajo relacionado &  &  & \cellcolor{ganttdone} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 3-3
+    \hspace{1ex}Búsqueda del trabajo relacionado &   &   & \cellcolor{ganttdone} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 3-3
     \hline
-    \hspace{1ex}Definición de objetivos e hipótesis &  &  & \cellcolor{ganttdone} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 3-3
+    \hspace{1ex}Definición de objetivos e hipótesis &   &   & \cellcolor{ganttdone} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 3-3
     \hline
-    \hspace{1ex}Delimitaciones y limitaciones &  &  &  & \cellcolor{ganttdone} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 4-4
+    \hspace{1ex}Delimitaciones y limitaciones &   &   &   & \cellcolor{ganttdone} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 4-4
     \hline
-    \hspace{1ex}Redacción de la metodología &  &  &  & \cellcolor{ganttdone} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 4-5
+    \hspace{1ex}Redacción de la metodología &   &   &   & \cellcolor{ganttdone} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 4-5
     \hline
-    \hspace{1ex}Presentación del protocolo &  &  &  &  &  & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 6-6
+    \hspace{1ex}Presentación del protocolo &   &   &   &   &   & \cellcolor{ganttplan} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 6-6
     \hline
-    \textbf{Cap. 1. Introducción} &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 6-7
+    \textbf{Cap. 1. Introducción} &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 6-7
     \hline
-    \hspace{1ex}Integración del protocolo como Capítulo 1 &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 6-7
+    \hspace{1ex}Integración del protocolo como Capítulo 1 &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 6-7
     \hline
-    \textbf{Cap. 2. Estado del arte (O1)} &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 6-9
+    \textbf{Cap. 2. Estado del arte (O1)} &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 6-9
     \hline
-    \hspace{1ex}Orquestación multiagente, RSM, especialización y heterogeneidad &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 6-8
+    \hspace{1ex}Orquestación multiagente, RSM, especialización y heterogeneidad &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 6-8
     \hline
-    \hspace{1ex}Métricas de corrección funcional y estructura (ISO/IEC 25010) &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 7-9
+    \hspace{1ex}Métricas de corrección funcional y estructura (ISO/IEC 25010) &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 7-9
     \hline
-    \textbf{Cap. 3. Diseño e implementación del artefacto (O2)} &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  & \\ % meses 8-17
+    \textbf{Cap. 3. Diseño e implementación del artefacto (O2)} &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &  \\ % meses 8-18
     \hline
-    \hspace{1ex}Requisitos y arquitectura del orquestador (RSM) &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 8-10
+    \hspace{1ex}Requisitos y arquitectura del orquestador (RSM) &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 8-10
     \hline
-    \hspace{1ex}Implementación y heterogeneidad vía enrutador &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 10-13
+    \hspace{1ex}Implementación y heterogeneidad vía enrutador &   &   &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 10-13
     \hline
-    \hspace{1ex}Configuración de la línea base (agente único) &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ % meses 13-14
+    \hspace{1ex}Configuración de la línea base (agente único) &   &   &   &   &   &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &   &   &   &   &  \\ % meses 13-14
     \hline
-    \hspace{1ex}Banco de tareas (backend en TypeScript) y suites de prueba &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  &  &  & \\ % meses 14-17
+    \hspace{1ex}Banco de tareas (backend en TypeScript) y suites de prueba &   &   &   &   &   &   &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &   &  \\ % meses 14-17
     \hline
-    \textbf{Cap. 4. Evaluación experimental y resultados (O3 y O4)} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  & \\ % meses 18-25
+    \hspace{1ex}Piloto: validación del artefacto y calibración de K &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &   &   &   &  \\ % meses 17-18
     \hline
-    \hspace{1ex}Piloto: validación del artefacto y calibración de K &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  &  &  &  & \\ % meses 18-19
+    \textbf{Cap. 4. Evaluación experimental y resultados (O3 y O4)} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &  \\ % meses 19-24
     \hline
-    \hspace{1ex}Experimento confirmatorio: ejecución &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  &  &  & \\ % meses 20-22
+    \hspace{1ex}Experimento confirmatorio: ejecución &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &   &   &  \\ % meses 19-21
     \hline
-    \hspace{1ex}Análisis estadístico por métrica &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  &  & \\ % meses 22-24
+    \hspace{1ex}Análisis estadístico por métrica &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &   &  \\ % meses 21-23
     \hline
-    \hspace{1ex}Discusión de resultados y amenazas a la validez &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  &  & \\ % meses 24-25
+    \hspace{1ex}Discusión de resultados y amenazas a la validez &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} &   &  \\ % meses 23-24
     \hline
-    \textbf{Cap. 5. Conclusiones} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan}\\ % meses 25-28
+    \textbf{Cap. 5. Conclusiones} &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} & \cellcolor{ganttplan}\\ % meses 24-26
     \hline
-    \hspace{1ex}Contrastación de hipótesis y conclusiones &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  & \\ % meses 25-26
+    \hspace{1ex}Contrastación de hipótesis y conclusiones &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan} &  \\ % meses 24-25
     \hline
-    \hspace{1ex}Revisión de tesis, anexos y entrega final &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{ganttplan} & \cellcolor{ganttplan}\\ % meses 27-28
+    \hspace{1ex}Revisión de tesis, anexos y entrega final &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & \cellcolor{ganttplan} & \cellcolor{ganttplan}\\ % meses 25-26
     \hline
   \end{tabular}}
 
